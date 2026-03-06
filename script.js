@@ -13,9 +13,13 @@ const ids = [
   "autoDepotPickup",
   "autoOutpostPickup",
   "autoNeutralZonePickup",
-  "teleCoral",
-  "teleAlgae",
-  "netScores",
+  "teleShootPosition",
+  "teleFuelScored",
+  "telePassNeutralZone",
+  "telePassOpponentZone",
+  "teleDepotPickup",
+  "teleOutpostPickup",
+  "teleFloorPickup",
   "endgame",
   "defense",
   "driverSkill",
@@ -39,7 +43,14 @@ function recomputeSummary() {
     (getField("autoPassNeutralZone").checked ? 4 : 0) +
     (getField("autoClimbL1").checked ? 6 : 0);
 
-  const telePoints = numeric("teleCoral") * 3 + numeric("teleAlgae") * 2 + numeric("netScores") * 4;
+  const telePoints =
+    numeric("teleFuelScored") * 2 +
+    numeric("teleDepotPickup") * 1 +
+    numeric("teleOutpostPickup") * 1 +
+    numeric("teleFloorPickup") * 1 +
+    (getField("telePassNeutralZone").checked ? 3 : 0) +
+    (getField("telePassOpponentZone").checked ? 4 : 0);
+
   const endgameBonus = {
     None: 0,
     Park: 2,
@@ -116,9 +127,12 @@ for (const id of [
   "autoDepotPickup",
   "autoOutpostPickup",
   "autoNeutralZonePickup",
-  "teleCoral",
-  "teleAlgae",
-  "netScores",
+  "teleFuelScored",
+  "telePassNeutralZone",
+  "telePassOpponentZone",
+  "teleDepotPickup",
+  "teleOutpostPickup",
+  "teleFloorPickup",
   "endgame",
   "died",
 ]) {

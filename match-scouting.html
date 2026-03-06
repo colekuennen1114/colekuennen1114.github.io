@@ -99,19 +99,40 @@
       </section>
 
       <section class="panel">
-        <h2>Teleop</h2>
-        <div class="grid three-col">
+        <h2>Teleop (2026 Rebuilt)</h2>
+        <div class="grid two-col">
           <label>
-            Coral Scored
-            <input id="teleCoral" type="number" min="0" value="0" />
+            TELE Shoot Position
+            <select id="teleShootPosition">
+              <option value="None">None</option>
+              <option value="Close">Close</option>
+              <option value="Mid">Mid</option>
+              <option value="Far">Far</option>
+            </select>
           </label>
           <label>
-            Algae Processed
-            <input id="teleAlgae" type="number" min="0" value="0" />
+            TELE Fuel Scored
+            <input id="teleFuelScored" type="number" min="0" value="0" />
+          </label>
+          <label class="toggle">
+            <input id="telePassNeutralZone" type="checkbox" />
+            TELE Pass from Neutral Zone
+          </label>
+          <label class="toggle">
+            <input id="telePassOpponentZone" type="checkbox" />
+            TELE Pass from Opponent Zone
           </label>
           <label>
-            Net Scores
-            <input id="netScores" type="number" min="0" value="0" />
+            TELE Depot Pickup
+            <input id="teleDepotPickup" type="number" min="0" value="0" />
+          </label>
+          <label>
+            TELE Outpost Pickup
+            <input id="teleOutpostPickup" type="number" min="0" value="0" />
+          </label>
+          <label>
+            TELE Floor Pickup
+            <input id="teleFloorPickup" type="number" min="0" value="0" />
           </label>
         </div>
       </section>
