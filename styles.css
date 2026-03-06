@@ -261,3 +261,31 @@ button:hover {
   font-size: 0.78rem;
   white-space: pre;
 }
+
+.fuel-counter-wrap {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.fuel-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+}
+
+.counter-btn {
+  min-height: 68px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #9fd0ff, #7ab9ff);
+  color: #0c2a52;
+  border: 1px solid #7ab9ff;
+}
+
+.counter-btn.danger {
+  min-height: 50px;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #ff9c9c, #ff6b6b);
+  color: #611616;
+  border: 1px solid #ff6b6b;
+}

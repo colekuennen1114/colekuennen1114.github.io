@@ -17,6 +17,7 @@ const columns = [
   "autoNeutralZonePickup",
   "teleShootPosition",
   "teleFuelScored",
+  "fuelScoredCounter",
   "telePassNeutralZone",
   "telePassOpponentZone",
   "teleDepotPickup",

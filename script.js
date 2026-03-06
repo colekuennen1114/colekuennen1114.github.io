@@ -15,6 +15,7 @@ const ids = [
   "autoNeutralZonePickup",
   "teleShootPosition",
   "teleFuelScored",
+  "fuelScoredCounter",
   "telePassNeutralZone",
   "telePassOpponentZone",
   "teleDepotPickup",
@@ -95,5 +96,25 @@ getField("driverSkill").addEventListener("input", (e) => {
 getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
 getField("clearBtn").addEventListener("click", clearEntries);
+
+
+function getCounterValue() {
+  const value = Number(getField("fuelScoredCounter").value || 0);
+  return Number.isFinite(value) ? Math.max(0, value) : 0;
+}
+
+function setCounterValue(value) {
+  getField("fuelScoredCounter").value = String(Math.max(0, value));
+}
+
+function adjustCounter(delta) {
+  setCounterValue(getCounterValue() + delta);
+}
+
+getField("fuelPlus1").addEventListener("click", () => adjustCounter(1));
+getField("fuelPlus3").addEventListener("click", () => adjustCounter(3));
+getField("fuelPlus5").addEventListener("click", () => adjustCounter(5));
+getField("fuelMinus1").addEventListener("click", () => adjustCounter(-1));
+getField("fuelScoredCounter").addEventListener("input", () => setCounterValue(getCounterValue()));
 
 getField("entryCount").textContent = String(getEntries().length);

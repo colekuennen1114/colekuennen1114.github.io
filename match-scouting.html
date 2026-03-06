@@ -166,6 +166,24 @@
         </div>
       </section>
 
+
+      <section class="panel">
+        <h2>Quick Fuel Counter</h2>
+        <p class="tiny">Tap buttons to adjust the shared total.</p>
+        <div class="fuel-counter-wrap">
+          <label>
+            Fuel Scored
+            <input id="fuelScoredCounter" type="number" min="0" value="0" />
+          </label>
+          <div class="fuel-buttons">
+            <button id="fuelPlus1" type="button" class="counter-btn">+1</button>
+            <button id="fuelPlus3" type="button" class="counter-btn">+3</button>
+            <button id="fuelPlus5" type="button" class="counter-btn">+5</button>
+            <button id="fuelMinus1" type="button" class="counter-btn danger">-1</button>
+          </div>
+        </div>
+      </section>
+
       <section class="panel">
         <h2>Notes</h2>
         <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, pickup preference, foul risk..."></textarea>
