@@ -76,7 +76,10 @@ body {
   background: linear-gradient(90deg, var(--brand), var(--brand-2));
 }
 
-.nav-button.muted,
+.nav-button.muted {
+  background: linear-gradient(90deg, #1767c3, #3fa7ff);
+}
+
 .nav-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -215,4 +218,46 @@ button:hover {
   .home-card {
     padding: 0.8rem;
   }
+}
+
+
+.table-wrap {
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+  background: #fff;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.55rem;
+  text-align: left;
+  font-size: 0.85rem;
+  vertical-align: top;
+}
+
+.data-table th {
+  position: sticky;
+  top: 0;
+  background: #eef5ff;
+  z-index: 1;
+}
+
+.csv-preview {
+  margin: 0;
+  max-height: 240px;
+  overflow: auto;
+  background: #f8fbff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 0.78rem;
+  white-space: pre;
 }

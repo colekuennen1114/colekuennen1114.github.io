@@ -4,10 +4,9 @@ A lightweight scouting web app for collecting FRC 2026 match data from any phone
 
 ## Pages
 
-- `index.html` — Home page with navigation options:
-  - **Match Scouting** (active)
-  - **View Data** (placeholder, coming soon)
+- `index.html` — Home page with navigation options.
 - `match-scouting.html` — Main scouting workflow form.
+- `view-data.html` — Data viewer page with spreadsheet-style table and CSV preview from saved entries.
 
 ## Features
 
@@ -18,6 +17,7 @@ A lightweight scouting web app for collecting FRC 2026 match data from any phone
 - Summary section currently shown as placeholder (contribution calculation temporarily disabled).
 - Local storage entry saving.
 - CSV export for spreadsheet analysis.
+- View Data page for reviewing saved entries as a table and CSV preview.
 
 ## Run locally
 
