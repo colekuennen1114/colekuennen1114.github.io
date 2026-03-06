@@ -2,13 +2,6 @@
 
 A lightweight scouting web app for collecting FRC 2026 match data from any phone or laptop.
 
-## Pages
-
-- `index.html` — Home page with navigation options:
-  - **Match Scouting** (active)
-  - **View Data** (placeholder, coming soon)
-- `match-scouting.html` — Main scouting workflow form.
-
 ## Features
 
 - Event/team/match metadata fields.
