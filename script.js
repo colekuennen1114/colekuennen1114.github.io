@@ -5,9 +5,14 @@ const ids = [
   "matchNumber",
   "alliance",
   "startPos",
-  "autoCoral",
-  "autoAlgae",
-  "leftZone",
+  "autoStartPosition",
+  "autoShootPosition",
+  "autoFuelScored",
+  "autoPassNeutralZone",
+  "autoClimbL1",
+  "autoDepotPickup",
+  "autoOutpostPickup",
+  "autoNeutralZonePickup",
   "teleCoral",
   "teleAlgae",
   "netScores",
@@ -26,7 +31,14 @@ function numeric(id) {
 }
 
 function recomputeSummary() {
-  const autoPoints = numeric("autoCoral") * 4 + numeric("autoAlgae") * 2 + (getField("leftZone").checked ? 3 : 0);
+  const autoPoints =
+    numeric("autoFuelScored") * 2 +
+    numeric("autoDepotPickup") * 1 +
+    numeric("autoOutpostPickup") * 1 +
+    numeric("autoNeutralZonePickup") * 2 +
+    (getField("autoPassNeutralZone").checked ? 4 : 0) +
+    (getField("autoClimbL1").checked ? 6 : 0);
+
   const telePoints = numeric("teleCoral") * 3 + numeric("teleAlgae") * 2 + numeric("netScores") * 4;
   const endgameBonus = {
     None: 0,
@@ -98,9 +110,12 @@ function clearEntries() {
 }
 
 for (const id of [
-  "autoCoral",
-  "autoAlgae",
-  "leftZone",
+  "autoFuelScored",
+  "autoPassNeutralZone",
+  "autoClimbL1",
+  "autoDepotPickup",
+  "autoOutpostPickup",
+  "autoNeutralZonePickup",
   "teleCoral",
   "teleAlgae",
   "netScores",

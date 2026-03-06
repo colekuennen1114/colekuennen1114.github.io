@@ -10,7 +10,7 @@
     <header class="site-header">
       <p><a class="back-link" href="index.html">← Back to Home</a></p>
       <h1>FRC 2026 Match Scouting</h1>
-      <p>Fast pit + match scouting for alliance selection prep.</p>
+      <p>Fast match scouting for 2026 Rebuilt alliance selection prep.</p>
     </header>
 
     <main class="layout">
@@ -52,19 +52,48 @@
       </section>
 
       <section class="panel">
-        <h2>Autonomous</h2>
-        <div class="grid three-col">
+        <h2>Autonomous (2026 Rebuilt)</h2>
+        <div class="grid two-col">
           <label>
-            Coral Scored
-            <input id="autoCoral" type="number" min="0" value="0" />
+            Auto Start Position
+            <select id="autoStartPosition">
+              <option value="Left">Left</option>
+              <option value="Center">Center</option>
+              <option value="Right">Right</option>
+            </select>
           </label>
           <label>
-            Algae Removed
-            <input id="autoAlgae" type="number" min="0" value="0" />
+            AUTO Shoot Position
+            <select id="autoShootPosition">
+              <option value="None">None</option>
+              <option value="Close">Close</option>
+              <option value="Mid">Mid</option>
+              <option value="Far">Far</option>
+            </select>
+          </label>
+          <label>
+            AUTO Fuel Scored
+            <input id="autoFuelScored" type="number" min="0" value="0" />
           </label>
           <label class="toggle">
-            <input id="leftZone" type="checkbox" />
-            Left Auto Zone
+            <input id="autoPassNeutralZone" type="checkbox" />
+            AUTO Pass from Neutral Zone
+          </label>
+          <label class="toggle">
+            <input id="autoClimbL1" type="checkbox" />
+            AUTO Climb (L1)
+          </label>
+          <label>
+            AUTO Depot Pickup
+            <input id="autoDepotPickup" type="number" min="0" value="0" />
+          </label>
+          <label>
+            AUTO Outpost Pickup
+            <input id="autoOutpostPickup" type="number" min="0" value="0" />
+          </label>
+          <label>
+            AUTO Neutral Zone Pickup
+            <input id="autoNeutralZonePickup" type="number" min="0" value="0" />
           </label>
         </div>
       </section>
@@ -118,7 +147,7 @@
 
       <section class="panel">
         <h2>Notes</h2>
-        <textarea id="notes" rows="4" placeholder="Cycle speed, preferred reef side, intake consistency, foul risk..."></textarea>
+        <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, pickup preference, foul risk..."></textarea>
       </section>
 
       <section class="panel actions">
@@ -134,7 +163,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>Template for GitHub Pages • edit fields/scoring to match your 2026 strategy.</p>
+      <p>Template for GitHub Pages • edit fields/scoring to match your 2026 Rebuilt strategy.</p>
     </footer>
 
     <script src="script.js"></script>
