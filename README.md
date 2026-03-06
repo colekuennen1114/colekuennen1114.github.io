@@ -1,6 +1,13 @@
-# FRC 2026 Scouting Template (GitHub Pages)
+# FRC 2026 Scouting Template 2 (GitHub Pages)
 
 A lightweight scouting web app for collecting FRC 2026 match data from any phone or laptop.
+
+## Pages
+
+- `index.html` — Home page with navigation options:
+  - **Match Scouting** (active)
+  - **View Data** (placeholder, coming soon)
+- `match-scouting.html` — Main scouting workflow form.
 
 ## Features
 
@@ -21,3 +28,9 @@ Then open: `http://localhost:8000`
 ## Deploy on GitHub Pages
 
 Because this repo is a user site (`<username>.github.io`), pushing to `main` publishes this static site automatically.
+
+If you do not see updates on the live site:
+
+1. Confirm GitHub Pages is configured to deploy from the `main` branch.
+2. Hard-refresh the page (`Ctrl+Shift+R` / `Cmd+Shift+R`).
+3. Wait 1-2 minutes for GitHub Pages to finish publishing.

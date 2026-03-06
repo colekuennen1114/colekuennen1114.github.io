@@ -3,139 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FRC 2026 Scouting Template</title>
+    <title>FRC 2026 Scouting Template 2</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <h1>FRC 2026 Scouting Template</h1>
-      <p>Fast pit + match scouting for alliance selection prep.</p>
-    </header>
+    <main class="home-layout">
+      <section class="home-card">
+        <p class="status-pill">Updated Home Screen • v2</p>
+        <h1>FRC 2026 Scouting Template 2</h1>
+        <p>Choose an option to continue.</p>
 
-    <main class="layout">
-      <section class="panel">
-        <h2>Event & Team Setup</h2>
-        <div class="grid two-col">
-          <label>
-            Event Name
-            <input id="eventName" type="text" placeholder="Great Lakes Regional" />
-          </label>
-          <label>
-            Scout Name
-            <input id="scoutName" type="text" placeholder="A. Scout" />
-          </label>
-          <label>
-            Team Number
-            <input id="teamNumber" type="number" placeholder="1114" />
-          </label>
-          <label>
-            Match #
-            <input id="matchNumber" type="number" placeholder="1" />
-          </label>
-          <label>
-            Alliance
-            <select id="alliance">
-              <option value="Red">Red</option>
-              <option value="Blue">Blue</option>
-            </select>
-          </label>
-          <label>
-            Starting Position
-            <select id="startPos">
-              <option value="Left">Left</option>
-              <option value="Center">Center</option>
-              <option value="Right">Right</option>
-            </select>
-          </label>
+        <div class="button-column">
+          <a class="nav-button" href="match-scouting.html">Match Scouting</a>
+          <button type="button" class="nav-button muted" disabled>View Data (Coming Soon)</button>
         </div>
-      </section>
 
-      <section class="panel">
-        <h2>Autonomous</h2>
-        <div class="grid three-col">
-          <label>
-            Coral Scored
-            <input id="autoCoral" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Algae Removed
-            <input id="autoAlgae" type="number" min="0" value="0" />
-          </label>
-          <label class="toggle">
-            <input id="leftZone" type="checkbox" />
-            Left Auto Zone
-          </label>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>Teleop</h2>
-        <div class="grid three-col">
-          <label>
-            Coral Scored
-            <input id="teleCoral" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Algae Processed
-            <input id="teleAlgae" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Net Scores
-            <input id="netScores" type="number" min="0" value="0" />
-          </label>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>Endgame & Reliability</h2>
-        <div class="grid two-col">
-          <label>
-            Endgame
-            <select id="endgame">
-              <option value="None">None</option>
-              <option value="Park">Park</option>
-              <option value="Shallow Cage">Shallow Cage</option>
-              <option value="Deep Cage">Deep Cage</option>
-            </select>
-          </label>
-          <label>
-            Defense Impact (0-5)
-            <input id="defense" type="range" min="0" max="5" value="2" />
-            <span id="defenseValue">2</span>
-          </label>
-          <label>
-            Driver Skill (0-5)
-            <input id="driverSkill" type="range" min="0" max="5" value="3" />
-            <span id="driverValue">3</span>
-          </label>
-          <label class="toggle">
-            <input id="died" type="checkbox" />
-            Robot Died / Disabled
-          </label>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>Notes</h2>
-        <textarea id="notes" rows="4" placeholder="Cycle speed, preferred reef side, intake consistency, foul risk..."></textarea>
-      </section>
-
-      <section class="panel actions">
-        <h2>Summary</h2>
-        <p id="summary">Estimated contribution: 0 pts</p>
-        <div class="button-row">
-          <button id="saveBtn" type="button">Save Entry</button>
-          <button id="downloadBtn" type="button">Download CSV</button>
-          <button id="clearBtn" type="button" class="ghost">Clear Local Data</button>
-        </div>
-        <p class="tiny">Saved entries: <span id="entryCount">0</span></p>
+        <p class="tiny top-gap">If this text is visible, the new homepage deploy is live.</p>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <p>Template for GitHub Pages • edit fields/scoring to match your 2026 strategy.</p>
-    </footer>
-
-    <script src="script.js"></script>
   </body>
 </html>
