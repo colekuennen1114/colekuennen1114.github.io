@@ -1,4 +1,5 @@
 const entriesKey = "frc2026_scout_entries";
+const sheetsWebhookKey = "frc2026_sheets_webhook";
 
 const columns = [
   "eventName",
@@ -35,6 +36,28 @@ const getField = (id) => document.getElementById(id);
 
 function getEntries() {
   return JSON.parse(localStorage.getItem(entriesKey) || "[]");
+}
+
+function getWebhookUrl() {
+  return (localStorage.getItem(sheetsWebhookKey) || "").trim();
+}
+
+function setStatus(text) {
+  getField("sheetsStatus").textContent = text;
+}
+
+function saveWebhookUrl() {
+  const input = getField("sheetsWebhookUrl");
+  const url = input.value.trim();
+
+  if (url.length === 0) {
+    localStorage.removeItem(sheetsWebhookKey);
+    setStatus("Webhook URL cleared. Upload button is disabled until you set it again.");
+    return;
+  }
+
+  localStorage.setItem(sheetsWebhookKey, url);
+  setStatus("Webhook URL saved. You can now upload in one click.");
 }
 
 function escapeCsv(value) {
@@ -107,29 +130,41 @@ async function sendToGoogleSheets() {
     return;
   }
 
-  const blob = createCsvBlob(entries);
-  const file = new File([blob], "frc2026_scouting_data.csv", { type: "text/csv" });
-
-  const canNativeShare = navigator.share && navigator.canShare && navigator.canShare({ files: [file] });
-
-  if (canNativeShare) {
-    try {
-      await navigator.share({
-        files: [file],
-        title: "FRC 2026 Scouting Data",
-        text: "Scouting CSV export",
-      });
-      return;
-    } catch {
-      // fall through to fallback flow
-    }
+  const webhookUrl = getWebhookUrl();
+  if (!webhookUrl) {
+    alert("Please paste your Google Apps Script Web App URL and click Save URL first.");
+    return;
   }
 
-  triggerDownload(blob);
-  window.open("https://docs.google.com/spreadsheets/create", "_blank", "noopener,noreferrer");
-  alert("CSV downloaded. In Google Sheets, use File > Import > Upload to send this CSV into a sheet.");
+  const payload = {
+    source: "frc2026_scouting_template_2",
+    timestamp: new Date().toISOString(),
+    columns,
+    rows: entries,
+    csv: toCsv(entries),
+  };
+
+  try {
+    await fetch(webhookUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    setStatus("Upload request sent to Google Sheets webhook.");
+  } catch {
+    setStatus("Upload failed. Verify your webhook URL and internet connection.");
+    alert("Upload failed. Check your webhook URL and try again.");
+  }
 }
 
+getField("sheetsWebhookUrl").value = getWebhookUrl();
+setStatus(getWebhookUrl() ? "Webhook URL loaded. Ready for one-click upload." : "Set your Apps Script URL once, then upload with one click.");
+
+getField("saveWebhookBtn").addEventListener("click", saveWebhookUrl);
 getField("refreshBtn").addEventListener("click", renderData);
 getField("downloadDataBtn").addEventListener("click", downloadCsv);
 getField("sendToSheetsBtn").addEventListener("click", sendToGoogleSheets);

@@ -17,11 +17,17 @@
       <section class="panel actions">
         <h2>Data Controls</h2>
         <p class="tiny">Entries found: <span id="dataCount">0</span></p>
+        <label>
+          Google Apps Script Web App URL
+          <input id="sheetsWebhookUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" />
+        </label>
         <div class="button-row">
+          <button id="saveWebhookBtn" type="button" class="ghost">Save URL</button>
           <button id="refreshBtn" type="button">Refresh</button>
           <button id="downloadDataBtn" type="button">Download CSV</button>
-          <button id="sendToSheetsBtn" type="button" class="ghost">Send to Google Sheets</button>
+          <button id="sendToSheetsBtn" type="button">One-Click Upload to Google Sheets</button>
         </div>
+        <p id="sheetsStatus" class="tiny">Set your Apps Script URL once, then upload with one click.</p>
       </section>
 
       <section class="panel">

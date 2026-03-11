@@ -19,7 +19,20 @@ A lightweight scouting web app for collecting FRC 2026 match data from any phone
 - Local storage entry saving.
 - CSV export for spreadsheet analysis.
 - View Data page for reviewing saved entries as a table and CSV preview.
-- View Data includes a "Send to Google Sheets" action (native share when supported, with download/import fallback).
+- View Data includes one-click direct upload to Google Sheets via Apps Script Web App webhook.
+
+## One-click Google Sheets setup
+
+To use direct upload from **View Data**:
+
+1. Create a Google Sheet.
+2. Open **Extensions → Apps Script**.
+3. Paste a `doPost(e)` script that appends rows from JSON payload (`rows`) into the sheet.
+4. Deploy as a **Web app** (execute as you, access: anyone with the link).
+5. Copy the Web App URL, paste it in the **Google Apps Script Web App URL** field on View Data, then click **Save URL**.
+6. Click **One-Click Upload to Google Sheets**.
+
+The app stores the webhook URL in browser localStorage (`frc2026_sheets_webhook`) so it only needs to be set once per browser/device.
 
 ## Run locally
 
