@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FRC 2026 Scouting Data</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <p><a class="back-link" href="index.html">← Back to Home</a></p>
+      <h1>Saved Scouting Data</h1>
+      <p>Spreadsheet view of locally saved entries (2026 Rebuilt).</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel actions">
+        <h2>Data Controls</h2>
+        <p class="tiny">Entries found: <span id="dataCount">0</span></p>
+        <div class="button-row">
+          <button id="refreshBtn" type="button">Refresh</button>
+          <button id="downloadDataBtn" type="button">Download CSV</button>
+          <button id="sendToSheetsBtn" type="button" class="ghost">Send to Google Sheets</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Spreadsheet View</h2>
+        <div class="table-wrap">
+          <table id="dataTable" class="data-table"></table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>CSV Preview</h2>
+        <pre id="csvPreview" class="csv-preview">No saved data yet.</pre>
+      </section>
+    </main>
+
+    <script src="view-data.js"></script>
+  </body>
+</html>
