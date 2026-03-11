@@ -19,6 +19,7 @@ A lightweight scouting web app for collecting FRC 2026 match data from any phone
 - Local storage entry saving.
 - CSV export for spreadsheet analysis.
 - View Data page for reviewing saved entries as a table and CSV preview.
+- View Data includes a "Send to Google Sheets" action (native share when supported, with download/import fallback).
 
 ## Run locally
 
