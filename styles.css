@@ -32,7 +32,7 @@ body {
 }
 
 .home-card {
-  background: var(--panel);
+  background: linear-gradient(180deg, rgba(39, 18, 26, 0.98), rgba(27, 15, 20, 0.98));
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 12px 32px var(--shadow);
@@ -101,7 +101,7 @@ body {
 }
 
 .back-link {
-  color: var(--brand);
+  color: #ffb8ce;
   font-weight: 600;
   text-decoration: none;
 }
@@ -130,7 +130,7 @@ body {
 }
 
 .panel {
-  background: var(--panel);
+  background: linear-gradient(180deg, rgba(39, 18, 26, 0.96), rgba(27, 15, 20, 0.96));
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
@@ -222,7 +222,7 @@ button.ghost {
 }
 
 button:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.06);
 }
 
 .fuel-counter-wrap {
