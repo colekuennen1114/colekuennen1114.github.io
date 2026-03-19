@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FRC 4122 Match Scouting</title>
+    <title>Qualification Match Data</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
       <p><a class="back-link" href="./">← Back to Home</a></p>
-      <h1>FRC 4122 Match Scouting</h1>
-      <p>Fast match scouting for 2026 Rebuilt alliance selection prep.</p>
+      <h1>Qualification Match Data</h1>
     </header>
 
     <main class="layout">
@@ -166,7 +165,6 @@
         </div>
       </section>
 
-
       <section class="panel">
         <h2>Quick Fuel Counter</h2>
         <p class="tiny">Tap buttons to adjust the shared total.</p>
@@ -175,11 +173,15 @@
             Fuel Scored
             <input id="fuelScoredCounter" type="number" min="0" value="0" />
           </label>
-          <div class="fuel-buttons">
-            <button id="fuelPlus1" type="button" class="counter-btn">+1</button>
-            <button id="fuelPlus3" type="button" class="counter-btn">+3</button>
-            <button id="fuelPlus5" type="button" class="counter-btn">+5</button>
+          <div class="fuel-buttons positive-buttons">
+            <button id="fuelPlus1" type="button" class="counter-btn positive">+1</button>
+            <button id="fuelPlus3" type="button" class="counter-btn positive">+3</button>
+            <button id="fuelPlus5" type="button" class="counter-btn positive">+5</button>
+          </div>
+          <div class="fuel-buttons negative-buttons">
             <button id="fuelMinus1" type="button" class="counter-btn danger">-1</button>
+            <button id="fuelMinus3" type="button" class="counter-btn danger">-3</button>
+            <button id="fuelMinus5" type="button" class="counter-btn danger">-5</button>
           </div>
         </div>
       </section>
@@ -201,6 +203,7 @@
       </section>
     </main>
 
+    <script src="app-sync.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
