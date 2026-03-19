@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FRC 4122 Scouting Hub</title>
+    <title>OEC Rebuilt Scouting</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="home-layout">
       <section class="home-card">
-        <img class="team-logo" src="assets/LOGO(1).png" alt="FRC Team 4122 logo" />
-        <p class="status-pill">FRC Team 4122</p>
-        <h1>Scouting Hub</h1>
-        <p>Choose a scouting workflow to continue.</p>
+        <img class="team-logo" src="assets/LOGO(1).png" alt="OEC Rebuilt Scouting logo" />
+        <p class="status-pill">OEC Rebuilt</p>
+        <h1>OEC Rebuilt Scouting</h1>
 
         <div class="button-column">
           <a class="nav-button" href="match-scouting.html">Match Scouting</a>
@@ -21,5 +20,18 @@
         </div>
       </section>
     </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="app-sync.js"></script>
+    <script>
+      window.ScoutingSync.registerServiceWorker();
+      const savedMessage = sessionStorage.getItem("scouting_toast");
+      if (savedMessage) {
+        window.ScoutingSync.showToast(savedMessage);
+        sessionStorage.removeItem("scouting_toast");
+      }
+      window.ScoutingSync.flushPendingUploads();
+    </script>
   </body>
 </html>

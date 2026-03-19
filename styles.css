@@ -1,12 +1,15 @@
 :root {
   color-scheme: light;
-  --bg: #f9f3f5;
+  --bg: #f6f8fb;
   --panel: #ffffff;
-  --text: #2d1520;
-  --muted: #6f5660;
-  --brand: #7a1735;
-  --brand-2: #a61d4d;
-  --border: #e8d7de;
+  --text: #1f2937;
+  --muted: #5f6b7a;
+  --brand: #2f6fdf;
+  --brand-2: #5f97ef;
+  --border: #d9e2f0;
+  --success: #1f6a38;
+  --danger: #8a1f1f;
+  --shadow: rgba(41, 72, 126, 0.12);
 }
 
 * {
@@ -17,7 +20,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(145deg, #fff7f9, var(--bg));
+  background: linear-gradient(145deg, #ffffff, var(--bg));
   color: var(--text);
 }
 
@@ -32,18 +35,24 @@ body {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(81, 15, 38, 0.10);
+  box-shadow: 0 12px 32px var(--shadow);
   width: min(540px, 100%);
   text-align: center;
   padding: 2rem 1rem;
 }
 
+.team-logo {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
 
 .status-pill {
   display: inline-block;
-  background: #f8e3ea;
-  color: #7a1735;
-  border: 1px solid #d8aab9;
+  background: #e9f1ff;
+  color: #2552a0;
+  border: 1px solid #bfd2f7;
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -71,13 +80,13 @@ body {
   padding: 0.75rem;
   font-size: 1rem;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   background: linear-gradient(90deg, var(--brand), var(--brand-2));
 }
 
 .nav-button.muted {
-  background: linear-gradient(90deg, #5e5e5e, #8b8b8b);
+  background: linear-gradient(90deg, #5d6f8f, #7f95bb);
 }
 
 .nav-button:disabled {
@@ -125,7 +134,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 8px 24px rgba(81, 15, 38, 0.10);
+  box-shadow: 0 12px 32px var(--shadow);
 }
 
 .panel h2 {
@@ -164,6 +173,13 @@ button {
   font-size: 0.95rem;
 }
 
+input,
+select,
+textarea {
+  background: #ffffff;
+  color: var(--text);
+}
+
 textarea {
   width: 100%;
 }
@@ -194,13 +210,13 @@ textarea {
 button {
   border: none;
   background: linear-gradient(90deg, var(--brand), var(--brand-2));
-  color: white;
+  color: #ffffff;
   font-weight: 700;
   cursor: pointer;
 }
 
 button.ghost {
-  background: white;
+  background: #ffffff;
   color: var(--brand);
   border: 1px solid var(--brand);
 }
@@ -209,17 +225,42 @@ button:hover {
   filter: brightness(1.05);
 }
 
-@media (max-width: 640px) {
-  .layout {
-    padding: 0.75rem;
-  }
-
-  .panel,
-  .home-card {
-    padding: 0.8rem;
-  }
+.fuel-counter-wrap {
+  display: grid;
+  gap: 0.75rem;
 }
 
+.fuel-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.counter-btn.positive {
+  background: linear-gradient(90deg, #1f6a38, #2b8d4d);
+}
+
+.counter-btn.danger {
+  background: linear-gradient(90deg, #8a1f1f, #b13a3a);
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%) translateY(120%);
+  background: rgba(31, 41, 55, 0.95);
+  color: #ffffff;
+  padding: 0.85rem 1.1rem;
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.28);
+  transition: transform 0.25s ease;
+  z-index: 1000;
+}
+
+.toast.visible {
+  transform: translateX(-50%) translateY(0);
+}
 
 .table-wrap {
   overflow: auto;
@@ -231,7 +272,7 @@ button:hover {
   width: 100%;
   border-collapse: collapse;
   min-width: 1000px;
-  background: #fff;
+  background: #ffffff;
 }
 
 .data-table th,
@@ -246,7 +287,7 @@ button:hover {
 .data-table th {
   position: sticky;
   top: 0;
-  background: #f6e5eb;
+  background: #e9f1ff;
   z-index: 1;
 }
 
@@ -254,62 +295,26 @@ button:hover {
   margin: 0;
   max-height: 240px;
   overflow: auto;
-  background: #fcf6f8;
+  background: #f8fbff;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem;
-  font-size: 0.78rem;
-  white-space: pre;
+  color: var(--text);
 }
 
-.fuel-counter-wrap {
-  display: grid;
-  gap: 0.8rem;
-}
+@media (max-width: 640px) {
+  .layout {
+    padding: 0.75rem;
+  }
 
-.fuel-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.6rem;
-}
+  .panel,
+  .home-card {
+    padding: 0.8rem;
+  }
 
-.counter-btn {
-  min-height: 68px;
-  font-size: 1.25rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #8a1538, #b21f52);
-  color: #ffffff;
-  border: 1px solid #8a1538;
-}
-
-.counter-btn.danger {
-  min-height: 50px;
-  font-size: 1rem;
-  background: linear-gradient(90deg, #651128, #8f1738);
-  color: #ffffff;
-  border: 1px solid #651128;
-}
-
-
-.team-logo {
-  width: min(150px, 42vw);
-  height: auto;
-  margin-bottom: 0.75rem;
-}
-
-.fuel-counter-wrap,
-.fuel-buttons,
-.counter-btn,
-#fuelScoredCounter {
-  touch-action: manipulation;
-}
-
-.counter-btn {
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-
-.pit-placeholder {
-  text-align: center;
+  .toast {
+    width: calc(100% - 2rem);
+    text-align: center;
+    border-radius: 16px;
+  }
 }
