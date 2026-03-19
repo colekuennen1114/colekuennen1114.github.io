@@ -118,3 +118,9 @@ getField("fuelMinus1").addEventListener("click", () => adjustCounter(-1));
 getField("fuelScoredCounter").addEventListener("input", () => setCounterValue(getCounterValue()));
 
 getField("entryCount").textContent = String(getEntries().length);
+
+
+for (const id of ["fuelPlus1", "fuelPlus3", "fuelPlus5", "fuelMinus1"]) {
+  const button = getField(id);
+  button.addEventListener("dblclick", (event) => event.preventDefault());
+}
