@@ -1,17 +1,15 @@
 :root {
-  color-scheme: dark;
-  --bg: #11070b;
-  --bg-accent: #2a1118;
-  --panel: #1b0f14;
-  --panel-soft: #28171e;
-  --text: #f8eef2;
-  --muted: #d2b6bf;
-  --brand: #7a1735;
-  --brand-2: #a61d4d;
-  --border: #4a2732;
+  color-scheme: light;
+  --bg: #f6f8fb;
+  --panel: #ffffff;
+  --text: #1f2937;
+  --muted: #5f6b7a;
+  --brand: #2f6fdf;
+  --brand-2: #5f97ef;
+  --border: #d9e2f0;
   --success: #1f6a38;
   --danger: #8a1f1f;
-  --shadow: rgba(0, 0, 0, 0.42);
+  --shadow: rgba(41, 72, 126, 0.12);
 }
 
 * {
@@ -22,7 +20,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #34141f 0%, var(--bg) 55%, #050203 100%);
+  background: linear-gradient(145deg, #ffffff, var(--bg));
   color: var(--text);
 }
 
@@ -37,7 +35,7 @@ body {
   background: linear-gradient(180deg, rgba(39, 18, 26, 0.98), rgba(27, 15, 20, 0.98));
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 18px 40px var(--shadow);
+  box-shadow: 0 12px 32px var(--shadow);
   width: min(540px, 100%);
   text-align: center;
   padding: 2rem 1rem;
@@ -52,9 +50,9 @@ body {
 
 .status-pill {
   display: inline-block;
-  background: rgba(166, 29, 77, 0.22);
-  color: #ffe0ea;
-  border: 1px solid rgba(255, 173, 201, 0.22);
+  background: #e9f1ff;
+  color: #2552a0;
+  border: 1px solid #bfd2f7;
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -88,7 +86,7 @@ body {
 }
 
 .nav-button.muted {
-  background: linear-gradient(90deg, #6d4653, #956270);
+  background: linear-gradient(90deg, #5d6f8f, #7f95bb);
 }
 
 .nav-button:disabled {
@@ -136,7 +134,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 18px 40px var(--shadow);
+  box-shadow: 0 12px 32px var(--shadow);
 }
 
 .panel h2 {
@@ -178,13 +176,8 @@ button {
 input,
 select,
 textarea {
-  background: var(--panel-soft);
+  background: #ffffff;
   color: var(--text);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #c393a1;
 }
 
 textarea {
@@ -223,50 +216,13 @@ button {
 }
 
 button.ghost {
-  background: rgba(166, 29, 77, 0.08);
-  color: #ffe3eb;
-  border: 1px solid rgba(255, 173, 201, 0.35);
+  background: #ffffff;
+  color: var(--brand);
+  border: 1px solid var(--brand);
 }
 
 button:hover {
   filter: brightness(1.06);
-}
-
-.choice-group {
-  margin: 1rem 0 0;
-  padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.choice-group legend {
-  padding: 0 0.4rem;
-  font-weight: 700;
-}
-
-.option-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.6rem;
-  margin-bottom: 0.75rem;
-}
-
-.choice-option {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.7rem 0.8rem;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--panel-soft);
-  font-weight: 600;
-}
-
-.choice-option input {
-  width: 1rem;
-  height: 1rem;
-  margin: 0;
 }
 
 .fuel-counter-wrap {
@@ -293,12 +249,11 @@ button:hover {
   left: 50%;
   bottom: 1.25rem;
   transform: translateX(-50%) translateY(120%);
-  background: rgba(17, 7, 11, 0.96);
+  background: rgba(31, 41, 55, 0.95);
   color: #ffffff;
   padding: 0.85rem 1.1rem;
-  border: 1px solid rgba(255, 173, 201, 0.22);
   border-radius: 999px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.28);
   transition: transform 0.25s ease;
   z-index: 1000;
 }
@@ -317,7 +272,7 @@ button:hover {
   width: 100%;
   border-collapse: collapse;
   min-width: 1000px;
-  background: #1a1015;
+  background: #ffffff;
 }
 
 .data-table th,
@@ -332,7 +287,7 @@ button:hover {
 .data-table th {
   position: sticky;
   top: 0;
-  background: #311822;
+  background: #e9f1ff;
   z-index: 1;
 }
 
@@ -340,7 +295,7 @@ button:hover {
   margin: 0;
   max-height: 240px;
   overflow: auto;
-  background: #1a1015;
+  background: #f8fbff;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem;
@@ -353,8 +308,7 @@ button:hover {
   }
 
   .panel,
-  .home-card,
-  .choice-group {
+  .home-card {
     padding: 0.8rem;
   }
 

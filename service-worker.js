@@ -9,7 +9,6 @@ const ASSETS = [
   "./script.js",
   "./view-data.js",
   "./app-sync.js",
-  "./pit-script.js",
   "./assets/LOGO(1).png",
   "./assets/frc-4122-logo.svg",
 ];
