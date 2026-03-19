@@ -1,6 +1,6 @@
 const pitEntriesKey = "frc2026_pit_entries";
 
-const pitFieldIds = [
+const pitTextFieldIds = [
   "pitEventName",
   "pitScoutName",
   "pitTeamNumber",
@@ -79,6 +79,17 @@ const pitColumns = [
   "timestamp",
 ];
 
+const pitRadioFieldNames = [
+  "pitDriveTrain",
+  "pitShooterType",
+  "pitAprilTagVision",
+  "pitVisionHardware",
+  "pitAutoAimVision",
+  "pitShootOnMove",
+  "pitClimbLevel",
+  "pitCooperative",
+];
+
 const getField = (id) => document.getElementById(id);
 const getRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value || "";
 
@@ -96,7 +107,7 @@ function updatePitCount() {
 
 function collectPitEntry() {
   const entry = {};
-  for (const id of pitFieldIds) {
+  for (const id of pitTextFieldIds) {
     entry[id] = getField(id).value.trim();
   }
 
@@ -114,7 +125,7 @@ function collectPitEntry() {
 }
 
 function clearPitForm() {
-  for (const id of pitFieldIds) {
+  for (const id of pitTextFieldIds) {
     getField(id).value = "";
   }
 
