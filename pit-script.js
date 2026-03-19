@@ -13,8 +13,12 @@ const pitTextFieldIds = [
   "pitCycleSpeed",
   "pitHopperEmptyTime",
   "pitBallsPerSecond",
+  "pitAprilTagVision",
+  "pitVisionHardware",
   "pitVisionHardwareOther",
   "pitLimelightVersion",
+  "pitAutoAimVision",
+  "pitShootOnMove",
   "pitShootingAccuracy",
   "pitIntakeReliability",
   "pitClimbOrientation",
@@ -125,7 +129,16 @@ function clearPitForm() {
     getField(id).value = "";
   }
 
-  for (const name of pitRadioFieldNames) {
+  for (const name of [
+    "pitDriveTrain",
+    "pitShooterType",
+    "pitAprilTagVision",
+    "pitVisionHardware",
+    "pitAutoAimVision",
+    "pitShootOnMove",
+    "pitClimbLevel",
+    "pitCooperative",
+  ]) {
     document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
       input.checked = false;
     });
