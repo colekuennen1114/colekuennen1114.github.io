@@ -29,7 +29,6 @@ const ids = [
 ];
 
 const getField = (id) => document.getElementById(id);
-const entriesKey = "frc2026_scout_entries";
 
 function collectEntry() {
   const entry = {};
@@ -41,37 +40,52 @@ function collectEntry() {
   return entry;
 }
 
-function getEntries() {
-  return JSON.parse(localStorage.getItem(entriesKey) || "[]");
+function updateEntryCount() {
+  getField("entryCount").textContent = String(window.ScoutingSync.getEntries().length);
 }
 
-function saveEntry() {
-  const entries = getEntries();
-  entries.push(collectEntry());
-  localStorage.setItem(entriesKey, JSON.stringify(entries));
-  getField("entryCount").textContent = String(entries.length);
+function clearForm() {
+  for (const id of ids) {
+    const field = getField(id);
+    if (field.type === "checkbox") {
+      field.checked = false;
+    } else if (field.type === "range") {
+      field.value = field.id === "defense" ? "2" : "3";
+    } else if (field.tagName === "SELECT") {
+      field.selectedIndex = 0;
+    } else {
+      field.value = field.defaultValue || "";
+    }
+  }
+  getField("defenseValue").textContent = getField("defense").value;
+  getField("driverValue").textContent = getField("driverSkill").value;
+  setCounterValue(getCounterValue());
 }
 
-function escapeCsv(value) {
-  const text = String(value ?? "");
-  return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+async function saveEntry() {
+  const entry = collectEntry();
+  window.ScoutingSync.queueEntry(entry);
+  updateEntryCount();
+  clearForm();
+
+  try {
+    await window.ScoutingSync.flushPendingUploads();
+  } catch {
+    // Keep offline entries queued for later upload.
+  }
+
+  sessionStorage.setItem("scouting_toast", "Your entry has been saved.");
+  window.location.href = "index.html";
 }
 
 function downloadCsv() {
-  const entries = getEntries();
+  const entries = window.ScoutingSync.getEntries();
   if (entries.length === 0) {
     alert("No entries saved yet.");
     return;
   }
 
-  const columns = [...ids, "timestamp"];
-  const lines = [columns.join(",")];
-
-  for (const row of entries) {
-    lines.push(columns.map((column) => escapeCsv(row[column])).join(","));
-  }
-
-  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+  const blob = new Blob([window.ScoutingSync.toCsv(entries)], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -81,8 +95,9 @@ function downloadCsv() {
 }
 
 function clearEntries() {
-  localStorage.removeItem(entriesKey);
-  getField("entryCount").textContent = "0";
+  localStorage.removeItem(window.ScoutingSync.entriesKey);
+  localStorage.removeItem("frc2026_pending_uploads");
+  updateEntryCount();
 }
 
 getField("defense").addEventListener("input", (e) => {
@@ -96,7 +111,6 @@ getField("driverSkill").addEventListener("input", (e) => {
 getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
 getField("clearBtn").addEventListener("click", clearEntries);
-
 
 function getCounterValue() {
   const value = Number(getField("fuelScoredCounter").value || 0);
@@ -115,12 +129,15 @@ getField("fuelPlus1").addEventListener("click", () => adjustCounter(1));
 getField("fuelPlus3").addEventListener("click", () => adjustCounter(3));
 getField("fuelPlus5").addEventListener("click", () => adjustCounter(5));
 getField("fuelMinus1").addEventListener("click", () => adjustCounter(-1));
+getField("fuelMinus3").addEventListener("click", () => adjustCounter(-3));
+getField("fuelMinus5").addEventListener("click", () => adjustCounter(-5));
 getField("fuelScoredCounter").addEventListener("input", () => setCounterValue(getCounterValue()));
 
-getField("entryCount").textContent = String(getEntries().length);
+updateEntryCount();
+window.ScoutingSync.registerServiceWorker();
+window.ScoutingSync.flushPendingUploads().catch(() => {});
 
-
-for (const id of ["fuelPlus1", "fuelPlus3", "fuelPlus5", "fuelMinus1"]) {
+for (const id of ["fuelPlus1", "fuelPlus3", "fuelPlus5", "fuelMinus1", "fuelMinus3", "fuelMinus5"]) {
   const button = getField(id);
   button.addEventListener("dblclick", (event) => event.preventDefault());
 }

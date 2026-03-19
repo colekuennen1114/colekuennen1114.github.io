@@ -1,45 +1,12 @@
-const entriesKey = "frc2026_scout_entries";
-const sheetsWebhookKey = "frc2026_sheets_webhook";
-
-const columns = [
-  "eventName",
-  "scoutName",
-  "teamNumber",
-  "matchNumber",
-  "alliance",
-  "startPos",
-  "autoStartPosition",
-  "autoShootPosition",
-  "autoFuelScored",
-  "autoPassNeutralZone",
-  "autoClimbL1",
-  "autoDepotPickup",
-  "autoOutpostPickup",
-  "autoNeutralZonePickup",
-  "teleShootPosition",
-  "teleFuelScored",
-  "fuelScoredCounter",
-  "telePassNeutralZone",
-  "telePassOpponentZone",
-  "teleDepotPickup",
-  "teleOutpostPickup",
-  "teleFloorPickup",
-  "endgame",
-  "defense",
-  "driverSkill",
-  "died",
-  "notes",
-  "timestamp",
-];
-
+const columns = window.ScoutingSync.columns;
 const getField = (id) => document.getElementById(id);
 
 function getEntries() {
-  return JSON.parse(localStorage.getItem(entriesKey) || "[]");
+  return window.ScoutingSync.getEntries();
 }
 
 function getWebhookUrl() {
-  return (localStorage.getItem(sheetsWebhookKey) || "").trim();
+  return window.ScoutingSync.getWebhookUrl();
 }
 
 function setStatus(text) {
@@ -51,26 +18,22 @@ function saveWebhookUrl() {
   const url = input.value.trim();
 
   if (url.length === 0) {
-    localStorage.removeItem(sheetsWebhookKey);
+    localStorage.removeItem(window.ScoutingSync.sheetsWebhookKey);
     setStatus("Webhook URL cleared. Upload button is disabled until you set it again.");
     return;
   }
 
-  localStorage.setItem(sheetsWebhookKey, url);
-  setStatus("Webhook URL saved. You can now upload in one click.");
-}
-
-function escapeCsv(value) {
-  const text = String(value ?? "");
-  return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-}
-
-function toCsv(entries) {
-  const lines = [columns.join(",")];
-  for (const row of entries) {
-    lines.push(columns.map((column) => escapeCsv(row[column])).join(","));
-  }
-  return lines.join("\n");
+  localStorage.setItem(window.ScoutingSync.sheetsWebhookKey, url);
+  setStatus("Webhook URL saved. Pending offline entries will sync when you are back online.");
+  window.ScoutingSync.flushPendingUploads()
+    .then((result) => {
+      if (result.uploaded > 0) {
+        setStatus(`Webhook URL saved. Uploaded ${result.uploaded} pending offline entries.`);
+      }
+    })
+    .catch(() => {
+      setStatus("Webhook URL saved. Offline entries will upload automatically when you are online.");
+    });
 }
 
 function renderTable(entries) {
@@ -96,11 +59,12 @@ function renderData() {
   const entries = getEntries();
   getField("dataCount").textContent = String(entries.length);
   renderTable(entries);
-  getField("csvPreview").textContent = entries.length === 0 ? "No saved data yet." : toCsv(entries);
+  getField("csvPreview").textContent = entries.length === 0 ? "No saved data yet." : window.ScoutingSync.toCsv(entries);
+  getField("pendingCount").textContent = String(window.ScoutingSync.getPendingUploads().length);
 }
 
 function createCsvBlob(entries) {
-  const csvText = toCsv(entries);
+  const csvText = window.ScoutingSync.toCsv(entries);
   return new Blob([csvText], { type: "text/csv;charset=utf-8;" });
 }
 
@@ -136,25 +100,16 @@ async function sendToGoogleSheets() {
     return;
   }
 
-  const payload = {
-    source: "frc2026_scouting_template_2",
-    timestamp: new Date().toISOString(),
-    columns,
-    rows: entries,
-    csv: toCsv(entries),
-  };
+  const pending = window.ScoutingSync.getPendingUploads();
+  if (pending.length === 0) {
+    setStatus("No pending offline entries to upload right now.");
+    return;
+  }
 
   try {
-    await fetch(webhookUrl, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    setStatus("Upload request sent to Google Sheets webhook.");
+    const result = await window.ScoutingSync.flushPendingUploads();
+    setStatus(result.uploaded > 0 ? `Upload request sent for ${result.uploaded} pending entries.` : "No pending offline entries to upload right now.");
+    renderData();
   } catch {
     setStatus("Upload failed. Verify your webhook URL and internet connection.");
     alert("Upload failed. Check your webhook URL and try again.");
@@ -162,11 +117,12 @@ async function sendToGoogleSheets() {
 }
 
 getField("sheetsWebhookUrl").value = getWebhookUrl();
-setStatus(getWebhookUrl() ? "Webhook URL loaded. Ready for one-click upload." : "Set your Apps Script URL once, then upload with one click.");
+setStatus(getWebhookUrl() ? "Webhook URL loaded. Pending offline entries will sync automatically when online." : "Set your Apps Script URL once to enable automatic offline sync.");
 
 getField("saveWebhookBtn").addEventListener("click", saveWebhookUrl);
 getField("refreshBtn").addEventListener("click", renderData);
 getField("downloadDataBtn").addEventListener("click", downloadCsv);
 getField("sendToSheetsBtn").addEventListener("click", sendToGoogleSheets);
 
-renderData();
+window.ScoutingSync.registerServiceWorker();
+window.ScoutingSync.flushPendingUploads().finally(renderData);
