@@ -18,7 +18,7 @@
         <h2>Data Controls</h2>
         <p class="tiny">Entries found: <span id="dataCount">0</span> · Pending offline uploads: <span id="pendingCount">0</span></p>
         <label>
-          Google Apps Script Web App URL
+          Google Apps Script Web App URL for Floyd's spreadsheet
           <input id="sheetsWebhookUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" />
         </label>
         <div class="button-row">
@@ -27,7 +27,20 @@
           <button id="downloadDataBtn" type="button">Download CSV</button>
           <button id="sendToSheetsBtn" type="button">One-Click Upload to Google Sheets</button>
         </div>
-        <p id="sheetsStatus" class="tiny">Set your Apps Script URL once, then upload with one click.</p>
+        <p id="sheetsStatus" class="tiny">This app can export CSV now. Direct browser uploads need a Google Apps Script Web App URL connected to the target spreadsheet.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Target Spreadsheet</h2>
+        <p class="tiny">
+          Match data is intended to go into one Google Sheet:
+          <a id="targetSpreadsheetLink" class="back-link" target="_blank" rel="noreferrer">Open Floyd's spreadsheet</a>.
+        </p>
+        <p class="tiny top-gap">
+          The Google Sheets edit link by itself is not a write API, so I could not safely connect the app directly to it from this codebase alone.
+          If you publish one Google Apps Script Web App for that sheet and save that single URL on each device, all devices will upload into the same spreadsheet.
+          Until then, each device can still download its local data as CSV for manual upload.
+        </p>
       </section>
 
       <section class="panel">

@@ -2,6 +2,7 @@ const ScoutingSync = (() => {
   const entriesKey = "frc2026_scout_entries";
   const pendingUploadsKey = "frc2026_pending_uploads";
   const sheetsWebhookKey = "frc2026_sheets_webhook";
+  const targetSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1M8QigTM__Esjc7xViWB5vVS9fHCC5_9p7fcxTM9tgRg/edit?usp=drivesdk";
 
   const columns = [
     "eventName", "scoutName", "teamNumber", "matchNumber", "alliance", "startPos",
@@ -98,6 +99,7 @@ const ScoutingSync = (() => {
     columns,
     entriesKey,
     sheetsWebhookKey,
+    targetSpreadsheetUrl,
     getEntries,
     saveEntries,
     getPendingUploads,
