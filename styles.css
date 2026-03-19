@@ -1,16 +1,16 @@
 :root {
   color-scheme: dark;
-  --bg: #09111f;
-  --bg-accent: #111b2d;
-  --panel: #162235;
-  --panel-soft: #1b2a42;
+  --bg: #020202;
+  --bg-accent: #090909;
+  --panel: #111111;
+  --panel-soft: #1a1a1a;
   --text: #f4f7fb;
   --muted: #b2bfd3;
-  --brand: #4f8cff;
-  --brand-2: #7ba8ff;
-  --border: #2b3a56;
+  --brand: #5b0d18;
+  --brand-2: #7b1321;
+  --border: #2e2e2e;
   --success: #1f6a38;
-  --danger: #8a1f1f;
+  --danger: #7b1321;
   --shadow: rgba(0, 0, 0, 0.38);
 }
 
@@ -22,7 +22,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #17253d 0%, var(--bg) 55%, #050a12 100%);
+  background: linear-gradient(180deg, #050505 0%, var(--bg) 100%);
   color: var(--text);
 }
 
@@ -34,7 +34,7 @@ body {
 }
 
 .home-card {
-  background: linear-gradient(180deg, rgba(39, 18, 26, 0.98), rgba(27, 15, 20, 0.98));
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(14, 14, 14, 0.98));
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 18px 40px var(--shadow);
@@ -79,7 +79,7 @@ body {
   width: 100%;
   border: none;
   border-radius: 8px;
-  padding: 0.75rem;
+  padding: 0.9rem 1rem;
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
@@ -88,7 +88,7 @@ body {
 }
 
 .nav-button.muted {
-  background: linear-gradient(90deg, #55657f, #7082a0);
+  background: linear-gradient(90deg, #4a4a4a, #666666);
 }
 
 .nav-button:disabled {
@@ -103,7 +103,7 @@ body {
 }
 
 .back-link {
-  color: #ffb8ce;
+  color: #f0b7c0;
   font-weight: 600;
   text-decoration: none;
 }
@@ -132,7 +132,7 @@ body {
 }
 
 .panel {
-  background: linear-gradient(180deg, rgba(39, 18, 26, 0.96), rgba(27, 15, 20, 0.96));
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.96), rgba(14, 14, 14, 0.96));
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
@@ -220,12 +220,13 @@ button {
   color: #ffffff;
   font-weight: 700;
   cursor: pointer;
+  min-height: 44px;
 }
 
 button.ghost {
-  background: rgba(79, 140, 255, 0.08);
-  color: #dbe8ff;
-  border: 1px solid rgba(123, 168, 255, 0.5);
+  background: rgba(123, 19, 33, 0.12);
+  color: #f6dce1;
+  border: 1px solid rgba(123, 19, 33, 0.55);
 }
 
 button:hover {
@@ -243,12 +244,51 @@ button:hover {
   gap: 0.5rem;
 }
 
+.counter-btn {
+  flex: 1 1 110px;
+  min-height: 60px;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+
 .counter-btn.positive {
   background: linear-gradient(90deg, #1f6a38, #2b8d4d);
 }
 
 .counter-btn.danger {
   background: linear-gradient(90deg, #8a1f1f, #b13a3a);
+}
+
+.choice-group {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.choice-group legend {
+  padding: 0 0.35rem;
+  font-weight: 700;
+}
+
+.option-grid {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.choice-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.choice-option input {
+  margin: 0;
+  flex: 0 0 auto;
 }
 
 .toast {
@@ -280,7 +320,7 @@ button:hover {
   width: 100%;
   border-collapse: collapse;
   min-width: 1000px;
-  background: #122033;
+  background: #111111;
 }
 
 .data-table th,
@@ -295,7 +335,7 @@ button:hover {
 .data-table th {
   position: sticky;
   top: 0;
-  background: #1e3150;
+  background: #1c1c1c;
   z-index: 1;
 }
 
@@ -303,7 +343,7 @@ button:hover {
   margin: 0;
   max-height: 240px;
   overflow: auto;
-  background: #122033;
+  background: #111111;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem;

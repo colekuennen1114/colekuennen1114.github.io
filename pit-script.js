@@ -58,7 +58,6 @@ const pitColumns = [
   "pitDriverExperience",
   "pitDriverPracticeHours",
   "pitRobotNotes",
-  "pitRobotPhotoNames",
   "pitCooperative",
   "pitCooperativeOther",
   "pitAnsweredQuestions",
@@ -91,7 +90,6 @@ function collectPitEntry() {
   entry.pitShooterType = getRadioValue("pitShooterType");
   entry.pitClimbLevel = getRadioValue("pitClimbLevel");
   entry.pitCooperative = getRadioValue("pitCooperative");
-  entry.pitRobotPhotoNames = Array.from(getField("pitRobotPhoto").files || []).map((file) => file.name).join(" | ");
   entry.timestamp = new Date().toISOString();
 
   return entry;
@@ -107,8 +105,6 @@ function clearPitForm() {
       input.checked = false;
     });
   }
-
-  getField("pitRobotPhoto").value = "";
 }
 
 function savePitEntry() {
