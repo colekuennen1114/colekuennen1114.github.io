@@ -1,5 +1,6 @@
 const columns = window.ScoutingSync.columns;
 const getField = (id) => document.getElementById(id);
+const targetSpreadsheetUrl = window.ScoutingSync.targetSpreadsheetUrl;
 
 function getEntries() {
   return window.ScoutingSync.getEntries();
@@ -19,20 +20,20 @@ function saveWebhookUrl() {
 
   if (url.length === 0) {
     localStorage.removeItem(window.ScoutingSync.sheetsWebhookKey);
-    setStatus("Webhook URL cleared. Upload button is disabled until you set it again.");
+    setStatus("Apps Script URL cleared. CSV download is still available on this device.");
     return;
   }
 
   localStorage.setItem(window.ScoutingSync.sheetsWebhookKey, url);
-  setStatus("Webhook URL saved. Pending offline entries will sync when you are back online.");
+  setStatus("Apps Script URL saved. Pending offline entries will sync to Floyd's spreadsheet when you are online.");
   window.ScoutingSync.flushPendingUploads()
     .then((result) => {
       if (result.uploaded > 0) {
-        setStatus(`Webhook URL saved. Uploaded ${result.uploaded} pending offline entries.`);
+        setStatus(`Apps Script URL saved. Uploaded ${result.uploaded} pending offline entries to Floyd's spreadsheet.`);
       }
     })
     .catch(() => {
-      setStatus("Webhook URL saved. Offline entries will upload automatically when you are online.");
+      setStatus("Apps Script URL saved. Offline entries will upload automatically when you are online.");
     });
 }
 
@@ -96,7 +97,7 @@ async function sendToGoogleSheets() {
 
   const webhookUrl = getWebhookUrl();
   if (!webhookUrl) {
-    alert("Please paste your Google Apps Script Web App URL and click Save URL first.");
+    alert("Please paste the Google Apps Script Web App URL for Floyd's spreadsheet and click Save URL first.");
     return;
   }
 
@@ -117,7 +118,12 @@ async function sendToGoogleSheets() {
 }
 
 getField("sheetsWebhookUrl").value = getWebhookUrl();
-setStatus(getWebhookUrl() ? "Webhook URL loaded. Pending offline entries will sync automatically when online." : "Set your Apps Script URL once to enable automatic offline sync.");
+getField("targetSpreadsheetLink").href = targetSpreadsheetUrl;
+setStatus(
+  getWebhookUrl()
+    ? "Apps Script URL loaded. Pending offline entries will sync automatically to Floyd's spreadsheet when online."
+    : "Direct syncing needs one Google Apps Script Web App URL for Floyd's spreadsheet. Until then, use Download CSV on each device."
+);
 
 getField("saveWebhookBtn").addEventListener("click", saveWebhookUrl);
 getField("refreshBtn").addEventListener("click", renderData);
