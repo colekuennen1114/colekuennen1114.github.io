@@ -291,6 +291,11 @@ button:hover {
 }
 
 
+.team-logo {
+  width: min(150px, 42vw);
+  height: auto;
+  margin-bottom: 0.75rem;
+}
 
 .fuel-counter-wrap,
 .fuel-buttons,
