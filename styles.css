@@ -1,12 +1,12 @@
 :root {
   color-scheme: light;
-  --bg: #f4f7fb;
+  --bg: #f9f3f5;
   --panel: #ffffff;
-  --text: #17212b;
-  --muted: #546172;
-  --brand: #005bbb;
-  --brand-2: #00a6fb;
-  --border: #d9e2ec;
+  --text: #2d1520;
+  --muted: #6f5660;
+  --brand: #7a1735;
+  --brand-2: #a61d4d;
+  --border: #e8d7de;
 }
 
 * {
@@ -17,7 +17,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(145deg, #e9f2ff, var(--bg));
+  background: linear-gradient(145deg, #fff7f9, var(--bg));
   color: var(--text);
 }
 
@@ -32,7 +32,7 @@ body {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 25, 55, 0.06);
+  box-shadow: 0 8px 24px rgba(81, 15, 38, 0.10);
   width: min(540px, 100%);
   text-align: center;
   padding: 2rem 1rem;
@@ -41,9 +41,9 @@ body {
 
 .status-pill {
   display: inline-block;
-  background: #e7f1ff;
-  color: #0f3f8f;
-  border: 1px solid #b7d3ff;
+  background: #f8e3ea;
+  color: #7a1735;
+  border: 1px solid #d8aab9;
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -77,7 +77,7 @@ body {
 }
 
 .nav-button.muted {
-  background: linear-gradient(90deg, #1767c3, #3fa7ff);
+  background: linear-gradient(90deg, #5e5e5e, #8b8b8b);
 }
 
 .nav-button:disabled {
@@ -125,7 +125,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 25, 55, 0.06);
+  box-shadow: 0 8px 24px rgba(81, 15, 38, 0.10);
 }
 
 .panel h2 {
@@ -246,7 +246,7 @@ button:hover {
 .data-table th {
   position: sticky;
   top: 0;
-  background: #eef5ff;
+  background: #f6e5eb;
   z-index: 1;
 }
 
@@ -254,7 +254,7 @@ button:hover {
   margin: 0;
   max-height: 240px;
   overflow: auto;
-  background: #f8fbff;
+  background: #fcf6f8;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem;
@@ -277,15 +277,39 @@ button:hover {
   min-height: 68px;
   font-size: 1.25rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #9fd0ff, #7ab9ff);
-  color: #0c2a52;
-  border: 1px solid #7ab9ff;
+  background: linear-gradient(135deg, #8a1538, #b21f52);
+  color: #ffffff;
+  border: 1px solid #8a1538;
 }
 
 .counter-btn.danger {
   min-height: 50px;
   font-size: 1rem;
-  background: linear-gradient(135deg, #ff9c9c, #ff6b6b);
-  color: #611616;
-  border: 1px solid #ff6b6b;
+  background: linear-gradient(90deg, #651128, #8f1738);
+  color: #ffffff;
+  border: 1px solid #651128;
+}
+
+
+.team-logo {
+  width: min(150px, 42vw);
+  height: auto;
+  margin-bottom: 0.75rem;
+}
+
+.fuel-counter-wrap,
+.fuel-buttons,
+.counter-btn,
+#fuelScoredCounter {
+  touch-action: manipulation;
+}
+
+.counter-btn {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+
+.pit-placeholder {
+  text-align: center;
 }
