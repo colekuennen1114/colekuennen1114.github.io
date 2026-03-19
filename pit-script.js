@@ -12,6 +12,13 @@ const pitFieldIds = [
   "pitCapacity",
   "pitCycleSpeed",
   "pitHopperEmptyTime",
+  "pitBallsPerSecond",
+  "pitAprilTagVision",
+  "pitVisionHardware",
+  "pitVisionHardwareOther",
+  "pitLimelightVersion",
+  "pitAutoAimVision",
+  "pitShootOnMove",
   "pitShootingAccuracy",
   "pitIntakeReliability",
   "pitClimbOrientation",
@@ -44,6 +51,13 @@ const pitColumns = [
   "pitCapacity",
   "pitCycleSpeed",
   "pitHopperEmptyTime",
+  "pitBallsPerSecond",
+  "pitAprilTagVision",
+  "pitVisionHardware",
+  "pitVisionHardwareOther",
+  "pitLimelightVersion",
+  "pitAutoAimVision",
+  "pitShootOnMove",
   "pitShootingAccuracy",
   "pitIntakeReliability",
   "pitClimbOrientation",
@@ -88,6 +102,10 @@ function collectPitEntry() {
 
   entry.pitDriveTrain = getRadioValue("pitDriveTrain");
   entry.pitShooterType = getRadioValue("pitShooterType");
+  entry.pitAprilTagVision = getRadioValue("pitAprilTagVision");
+  entry.pitVisionHardware = getRadioValue("pitVisionHardware");
+  entry.pitAutoAimVision = getRadioValue("pitAutoAimVision");
+  entry.pitShootOnMove = getRadioValue("pitShootOnMove");
   entry.pitClimbLevel = getRadioValue("pitClimbLevel");
   entry.pitCooperative = getRadioValue("pitCooperative");
   entry.timestamp = new Date().toISOString();
@@ -100,11 +118,22 @@ function clearPitForm() {
     getField(id).value = "";
   }
 
-  for (const name of ["pitDriveTrain", "pitShooterType", "pitClimbLevel", "pitCooperative"]) {
+  for (const name of [
+    "pitDriveTrain",
+    "pitShooterType",
+    "pitAprilTagVision",
+    "pitVisionHardware",
+    "pitAutoAimVision",
+    "pitShootOnMove",
+    "pitClimbLevel",
+    "pitCooperative",
+  ]) {
     document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
       input.checked = false;
     });
   }
+
+  updateLimelightVersionVisibility();
 }
 
 function savePitEntry() {
@@ -114,6 +143,17 @@ function savePitEntry() {
   updatePitCount();
   clearPitForm();
   window.ScoutingSync.showToast("Pit entry saved.");
+}
+
+
+function updateLimelightVersionVisibility() {
+  const isLimelight = getRadioValue("pitVisionHardware") === "Limelight";
+  const limelightLabel = getField("pitLimelightVersionLabel");
+  limelightLabel.hidden = !isLimelight;
+
+  if (!isLimelight) {
+    getField("pitLimelightVersion").value = "";
+  }
 }
 
 function clearPitEntries() {
@@ -148,9 +188,14 @@ function downloadPitCsv() {
   URL.revokeObjectURL(url);
 }
 
+document.querySelectorAll('input[name="pitVisionHardware"]').forEach((input) => {
+  input.addEventListener("change", updateLimelightVersionVisibility);
+});
+
 getField("savePitBtn").addEventListener("click", savePitEntry);
 getField("downloadPitBtn").addEventListener("click", downloadPitCsv);
 getField("clearPitBtn").addEventListener("click", clearPitEntries);
 
 window.ScoutingSync.registerServiceWorker();
+updateLimelightVersionVisibility();
 updatePitCount();
