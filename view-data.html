@@ -16,7 +16,7 @@
     <main class="layout">
       <section class="panel actions">
         <h2>Data Controls</h2>
-        <p class="tiny">Entries found: <span id="dataCount">0</span></p>
+        <p class="tiny">Entries found: <span id="dataCount">0</span> · Pending offline uploads: <span id="pendingCount">0</span></p>
         <label>
           Google Apps Script Web App URL
           <input id="sheetsWebhookUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" />
@@ -43,6 +43,7 @@
       </section>
     </main>
 
+    <script src="app-sync.js"></script>
     <script src="view-data.js"></script>
   </body>
 </html>

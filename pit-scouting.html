@@ -3,21 +3,209 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FRC 4122 Pit Scouting</title>
+    <title>OEC Rebuilt Scouting | Pit Scouting</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
       <p><a class="back-link" href="./">← Back to Home</a></p>
       <h1>Pit Scouting</h1>
-      <p>Dedicated pit scouting page for Team 4122. More fields can be added later.</p>
     </header>
 
     <main class="layout">
-      <section class="panel pit-placeholder">
-        <h2>Coming Soon</h2>
-        <p>This page is ready for pit scouting questions, robot photos, and inspection notes.</p>
+      <section class="panel">
+        <h2>Setup</h2>
+        <div class="grid two-col">
+          <label>
+            Event Name
+            <input id="pitEventName" type="text" placeholder="Great Lakes Regional" />
+          </label>
+          <label>
+            Scout Name
+            <input id="pitScoutName" type="text" placeholder="A. Scout" />
+          </label>
+          <label>
+            Team #
+            <input id="pitTeamNumber" type="number" placeholder="1114" />
+          </label>
+          <label>
+            Who are you speaking to?
+            <input id="pitContact" type="text" placeholder="Captain, Head of Mechanical, Member, etc." />
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Interview</h2>
+        <div class="grid two-col">
+          <label>
+            What are their robot dimensions (height, width, length)?
+            <textarea id="pitDimensions" rows="2" placeholder="e.g. 54 in tall, 28 in wide, 32 in long"></textarea>
+          </label>
+          <label>
+            What is the approximate weight of their robot?
+            <input id="pitWeight" type="text" placeholder="e.g. 118 lb" />
+          </label>
+        </div>
+
+        <fieldset class="choice-group">
+          <legend>What drive train are they using for their robot?</legend>
+          <div class="option-grid">
+            <label class="choice-option"><input type="radio" name="pitDriveTrain" value="Swerve" />Swerve</label>
+            <label class="choice-option"><input type="radio" name="pitDriveTrain" value="Tank" />Tank</label>
+            <label class="choice-option"><input type="radio" name="pitDriveTrain" value="Mecanum" />Mecanum</label>
+            <label class="choice-option"><input type="radio" name="pitDriveTrain" value="Other" />Other</label>
+          </div>
+          <label>
+            Drive train other
+            <input id="pitDriveTrainOther" type="text" placeholder="Describe their drive train" />
+          </label>
+        </fieldset>
+
+        <fieldset class="choice-group">
+          <legend>What type of shooter does their robot use?</legend>
+          <div class="option-grid">
+            <label class="choice-option"><input type="radio" name="pitShooterType" value="Turret" />Turret</label>
+            <label class="choice-option"><input type="radio" name="pitShooterType" value="Fixed Shooter" />Fixed Shooter</label>
+            <label class="choice-option"><input type="radio" name="pitShooterType" value="Drum / Dual Wheel" />Drum / Dual Wheel</label>
+            <label class="choice-option"><input type="radio" name="pitShooterType" value="Single Wheel" />Single Wheel</label>
+            <label class="choice-option"><input type="radio" name="pitShooterType" value="Other" />Other</label>
+          </div>
+          <label>
+            Shooter other
+            <input id="pitShooterTypeOther" type="text" placeholder="Describe their shooter" />
+          </label>
+        </fieldset>
+
+        <div class="grid two-col">
+          <label>
+            How many balls can their robot hold at once?
+            <input id="pitCapacity" type="text" placeholder="e.g. 5 pieces" />
+          </label>
+          <label>
+            How fast can their robot cycle pieces during an active hub period? (seconds)
+            <input id="pitCycleSpeed" type="text" placeholder="e.g. 7 seconds" />
+          </label>
+          <label>
+            How quickly can their robot empty a full hopper? (seconds)
+            <input id="pitHopperEmptyTime" type="text" placeholder="e.g. 2.5 seconds" />
+          </label>
+          <label>
+            What is their estimated shooting accuracy?
+            <textarea id="pitShootingAccuracy" rows="2" placeholder="Share the estimate they gave and any context."></textarea>
+          </label>
+          <label>
+            How fast and reliable is their intake system?
+            <textarea id="pitIntakeReliability" rows="2" placeholder="Pickup speed, jam risk, ground loading, etc."></textarea>
+          </label>
+          <label>
+            Can their robot climb the tower? If so, can they climb holding onto the bar or in any other orientation?
+            <textarea id="pitClimbOrientation" rows="2" placeholder="Describe climb style and orientation."></textarea>
+          </label>
+        </div>
+
+        <fieldset class="choice-group">
+          <legend>What level can they reach?</legend>
+          <div class="option-grid">
+            <label class="choice-option"><input type="radio" name="pitClimbLevel" value="L1" />L1</label>
+            <label class="choice-option"><input type="radio" name="pitClimbLevel" value="L2" />L2</label>
+            <label class="choice-option"><input type="radio" name="pitClimbLevel" value="L3" />L3</label>
+            <label class="choice-option"><input type="radio" name="pitClimbLevel" value="Doesn't Climb" />Doesn't climb</label>
+          </div>
+        </fieldset>
+
+        <div class="grid two-col">
+          <label>
+            How much time do they need to climb? How consistent is their climb?
+            <textarea id="pitClimbConsistency" rows="2" placeholder="Timing, success rate, and failure modes."></textarea>
+          </label>
+          <label>
+            Can they score during auto? If so, how many pieces?
+            <textarea id="pitAutoScoring" rows="2" placeholder="Auto scoring ability and piece count."></textarea>
+          </label>
+          <label>
+            What are their primary auto routes?
+            <textarea id="pitAutoRoutes" rows="2" placeholder="Starting spots, route shapes, first actions, etc."></textarea>
+          </label>
+          <label>
+            What role does their robot play during active hubs? Inactive hubs? Endgame?
+            <textarea id="pitRoles" rows="3" placeholder="Primary role by phase of the match."></textarea>
+          </label>
+          <label>
+            Are they able to ferry game pieces?
+            <textarea id="pitFerrying" rows="2" placeholder="Describe ferry ability, route, and consistency."></textarea>
+          </label>
+          <label>
+            How reliable has their robot been during testing? Does it break / need frequent repairs?
+            <textarea id="pitReliability" rows="2" placeholder="Share failures, maintenance, and downtime."></textarea>
+          </label>
+          <label>
+            How well are they able to repair / prepare their robot for the next match?
+            <textarea id="pitRepairReadiness" rows="2" placeholder="Turnaround speed, spares, pit crew readiness."></textarea>
+          </label>
+          <label>
+            How experienced are their drivers (in years)?
+            <input id="pitDriverExperience" type="text" placeholder="e.g. 2 years" />
+          </label>
+          <label>
+            How many hours have their drivers been practicing together?
+            <input id="pitDriverPracticeHours" type="text" placeholder="e.g. 45 hours" />
+          </label>
+          <label>
+            Is there anything else we should know about their robot?
+            <textarea id="pitRobotNotes" rows="3" placeholder="Unique mechanisms, limitations, strategy notes, etc."></textarea>
+          </label>
+          <label>
+            Ask to take a picture of their robot and attach here.
+            <input id="pitRobotPhoto" type="file" accept="image/*" multiple />
+            <span class="tiny">Photo filenames are saved with the entry; the image files stay on this device.</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Analysis</h2>
+
+        <fieldset class="choice-group">
+          <legend>How cooperative were they?</legend>
+          <div class="option-grid">
+            <label class="choice-option"><input type="radio" name="pitCooperative" value="Very" />Very</label>
+            <label class="choice-option"><input type="radio" name="pitCooperative" value="Decent" />Decent</label>
+            <label class="choice-option"><input type="radio" name="pitCooperative" value="Not Much" />Not much</label>
+            <label class="choice-option"><input type="radio" name="pitCooperative" value="Other" />Other</label>
+          </div>
+          <label>
+            Cooperative other
+            <input id="pitCooperativeOther" type="text" placeholder="Describe their level of cooperation" />
+          </label>
+        </fieldset>
+
+        <div class="grid two-col">
+          <label>
+            Did they answer all of your questions?
+            <textarea id="pitAnsweredQuestions" rows="2" placeholder="Yes / no, plus anything they skipped."></textarea>
+          </label>
+          <label>
+            Any other notes?
+            <textarea id="pitOtherNotes" rows="3" placeholder="Anything else the team should know."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel actions">
+        <h2>Pit Entry Actions</h2>
+        <div class="button-row">
+          <button id="savePitBtn" type="button">Save Pit Entry</button>
+          <button id="downloadPitBtn" type="button">Download Pit CSV</button>
+          <button id="clearPitBtn" type="button" class="ghost">Clear Pit Data</button>
+        </div>
+        <p class="tiny">Saved pit entries: <span id="pitEntryCount">0</span></p>
       </section>
     </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="app-sync.js"></script>
+    <script src="pit-script.js"></script>
   </body>
 </html>
