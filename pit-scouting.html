@@ -89,6 +89,56 @@
             <input id="pitHopperEmptyTime" type="text" placeholder="e.g. 2.5 seconds" />
           </label>
           <label>
+            Balls per second
+            <input id="pitBallsPerSecond" type="text" placeholder="e.g. 2.4" />
+          </label>
+          <fieldset class="choice-group">
+            <legend>AprilTag vision?</legend>
+            <div class="option-grid">
+              <label class="choice-option"><input type="radio" name="pitAprilTagVision" value="Yes" />Yes</label>
+              <label class="choice-option"><input type="radio" name="pitAprilTagVision" value="No" />No</label>
+            </div>
+          </fieldset>
+          <fieldset class="choice-group">
+            <legend>Vision hardware</legend>
+            <div class="option-grid">
+              <label class="choice-option"><input type="radio" name="pitVisionHardware" value="Limelight" />Limelight</label>
+              <label class="choice-option"><input type="radio" name="pitVisionHardware" value="Orange Pi" />Orange Pi</label>
+              <label class="choice-option"><input type="radio" name="pitVisionHardware" value="Raspberry Pi" />Raspberry Pi</label>
+              <label class="choice-option"><input type="radio" name="pitVisionHardware" value="Other" />Other</label>
+            </div>
+            <label>
+              Other vision hardware
+              <input id="pitVisionHardwareOther" type="text" placeholder="Describe the vision hardware" />
+            </label>
+          </fieldset>
+          <label id="pitLimelightVersionLabel" hidden>
+            If Limelight, which version?
+            <select id="pitLimelightVersion">
+              <option value="">Select version</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="2+">2+</option>
+              <option value="3A">3A</option>
+              <option value="3G">3G</option>
+              <option value="4">4</option>
+            </select>
+          </label>
+          <fieldset class="choice-group">
+            <legend>Auto aiming with vision?</legend>
+            <div class="option-grid">
+              <label class="choice-option"><input type="radio" name="pitAutoAimVision" value="Yes" />Yes</label>
+              <label class="choice-option"><input type="radio" name="pitAutoAimVision" value="No" />No</label>
+            </div>
+          </fieldset>
+          <fieldset class="choice-group">
+            <legend>Shoot on the move?</legend>
+            <div class="option-grid">
+              <label class="choice-option"><input type="radio" name="pitShootOnMove" value="Yes" />Yes</label>
+              <label class="choice-option"><input type="radio" name="pitShootOnMove" value="No" />No</label>
+            </div>
+          </fieldset>
+          <label>
             What is their estimated shooting accuracy?
             <textarea id="pitShootingAccuracy" rows="2" placeholder="Share the estimate they gave and any context."></textarea>
           </label>
