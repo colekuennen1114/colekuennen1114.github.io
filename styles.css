@@ -28,8 +28,10 @@ body {
 
 .home-layout {
   min-height: 100vh;
+  width: 100%;
   display: grid;
-  place-content: center;
+  justify-items: center;
+  align-content: center;
   gap: 1rem;
   padding: 1rem;
 }
