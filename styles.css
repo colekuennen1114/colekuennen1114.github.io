@@ -206,6 +206,10 @@ textarea {
   height: 1rem;
 }
 
+.stacked-toggles .toggle {
+  grid-column: 1 / -1;
+}
+
 .actions {
   display: grid;
   gap: 0.65rem;
