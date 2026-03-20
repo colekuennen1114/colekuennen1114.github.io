@@ -81,14 +81,6 @@
             <input id="pitCapacity" type="text" placeholder="e.g. 5 pieces" />
           </label>
           <label>
-            How fast can their robot cycle pieces during an active hub period? (seconds)
-            <input id="pitCycleSpeed" type="text" placeholder="e.g. 7 seconds" />
-          </label>
-          <label>
-            How quickly can their robot empty a full hopper? (seconds)
-            <input id="pitHopperEmptyTime" type="text" placeholder="e.g. 2.5 seconds" />
-          </label>
-          <label>
             Balls per second
             <input id="pitBallsPerSecond" type="text" placeholder="e.g. 2.4" />
           </label>
@@ -116,6 +108,7 @@
             If Limelight, which version?
             <select id="pitLimelightVersion">
               <option value="">Select version</option>
+              <option value="No Limelight">No Limelight</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="2+">2+</option>
@@ -146,10 +139,18 @@
             How fast and reliable is their intake system?
             <textarea id="pitIntakeReliability" rows="2" placeholder="Pickup speed, jam risk, ground loading, etc."></textarea>
           </label>
-          <label>
-            Can their robot climb the tower? If so, can they climb holding onto the bar or in any other orientation?
-            <textarea id="pitClimbOrientation" rows="2" placeholder="Describe climb style and orientation."></textarea>
-          </label>
+          <fieldset class="choice-group">
+            <legend>Can their robot climb the tower?</legend>
+            <div class="option-grid">
+              <label class="choice-option"><input type="radio" name="pitClimbAbility" value="Yes" />Yes</label>
+              <label class="choice-option"><input type="radio" name="pitClimbAbility" value="No" />No</label>
+              <label class="choice-option"><input type="radio" name="pitClimbAbility" value="Other" />Other</label>
+            </div>
+            <label>
+              Other climb notes
+              <input id="pitClimbAbilityOther" type="text" placeholder="Add climb details if needed" />
+            </label>
+          </fieldset>
         </div>
 
         <fieldset class="choice-group">
@@ -164,10 +165,6 @@
 
         <div class="grid two-col">
           <label>
-            How much time do they need to climb? How consistent is their climb?
-            <textarea id="pitClimbConsistency" rows="2" placeholder="Timing, success rate, and failure modes."></textarea>
-          </label>
-          <label>
             Can they score during auto? If so, how many pieces?
             <textarea id="pitAutoScoring" rows="2" placeholder="Auto scoring ability and piece count."></textarea>
           </label>
@@ -176,13 +173,21 @@
             <textarea id="pitAutoRoutes" rows="2" placeholder="Starting spots, route shapes, first actions, etc."></textarea>
           </label>
           <label>
-            What role does their robot play during active hubs? Inactive hubs? Endgame?
-            <textarea id="pitRoles" rows="3" placeholder="Primary role by phase of the match."></textarea>
+            What is their primary role throughout the match?
+            <textarea id="pitRoles" rows="3" placeholder="Primary role throughout the match."></textarea>
           </label>
-          <label>
-            Are they able to ferry game pieces?
-            <textarea id="pitFerrying" rows="2" placeholder="Describe ferry ability, route, and consistency."></textarea>
-          </label>
+          <fieldset class="choice-group">
+            <legend>Are they able to ferry game pieces?</legend>
+            <div class="option-grid">
+              <label class="choice-option"><input type="radio" name="pitFerrying" value="Yes" />Yes</label>
+              <label class="choice-option"><input type="radio" name="pitFerrying" value="No" />No</label>
+              <label class="choice-option"><input type="radio" name="pitFerrying" value="Other" />Other</label>
+            </div>
+            <label>
+              Other ferrying notes
+              <input id="pitFerryingOther" type="text" placeholder="Add ferry details if needed" />
+            </label>
+          </fieldset>
           <label>
             How reliable has their robot been during testing? Does it break / need frequent repairs?
             <textarea id="pitReliability" rows="2" placeholder="Share failures, maintenance, and downtime."></textarea>
