@@ -12,9 +12,9 @@
       <h1>Qualification Match Data</h1>
     </header>
 
-    <main class="layout">
-      <section class="panel">
-        <h2>Event & Team Setup</h2>
+    <main class="layout form-layout">
+      <section class="panel form-step is-active" data-step="0">
+        <h2>Event &amp; Team Setup</h2>
         <div class="grid two-col">
           <label>
             Event Name
@@ -48,13 +48,17 @@
             </select>
           </label>
         </div>
+        <div class="step-nav">
+          <button type="button" class="ghost nav-step-btn" data-nav="prev" disabled>Back</button>
+          <button type="button" class="nav-step-btn" data-nav="next">Next</button>
+        </div>
       </section>
 
-      <section class="panel">
-        <h2>Autonomous (2026 Rebuilt)</h2>
+      <section class="panel form-step" data-step="1">
+        <h2>Autonomous</h2>
         <div class="grid two-col">
           <label>
-            Auto Start Position
+            AUTO Start Position
             <select id="autoStartPosition">
               <option value="Left">Left</option>
               <option value="Center">Center</option>
@@ -70,36 +74,78 @@
               <option value="Far">Far</option>
             </select>
           </label>
+          <label class="toggle">
+            <input id="autoFloorPickup" type="checkbox" />
+            Floor pickup?
+          </label>
+          <label class="toggle">
+            <input id="autoPickupDepot" type="checkbox" />
+            Pickup from depot?
+          </label>
+          <label class="toggle">
+            <input id="autoPickupOutpost" type="checkbox" />
+            Pickup from outpost?
+          </label>
+          <label class="toggle">
+            <input id="autoPickupNeutralZone" type="checkbox" />
+            Pickup from Neutral Zone?
+          </label>
+          <label class="toggle">
+            <input id="autoPassingNeutralZone" type="checkbox" />
+            Auto passing/ferrying from neutral zone?
+          </label>
+          <label class="toggle">
+            <input id="autoDied" type="checkbox" />
+            Robot Died / Disabled
+          </label>
+        </div>
+
+        <fieldset class="choice-group top-gap">
+          <legend>Auto Climb</legend>
+          <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="autoClimb" value="L1" />L1</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="Failed Climb" />Failed Climb</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="Other" />Other</label>
+          </div>
+        </fieldset>
+
+        <div class="fuel-counter-wrap top-gap">
+          <p class="tiny">Quick fuel counter for auto fuel scored.</p>
           <label>
-            AUTO Fuel Scored
+            Auto Fuel Scored
             <input id="autoFuelScored" type="number" min="0" value="0" />
           </label>
-          <label class="toggle">
-            <input id="autoPassNeutralZone" type="checkbox" />
-            AUTO Pass from Neutral Zone
-          </label>
-          <label class="toggle">
-            <input id="autoClimbL1" type="checkbox" />
-            AUTO Climb (L1)
-          </label>
-          <label>
-            AUTO Depot Pickup
-            <input id="autoDepotPickup" type="number" min="0" value="0" />
-          </label>
-          <label>
-            AUTO Outpost Pickup
-            <input id="autoOutpostPickup" type="number" min="0" value="0" />
-          </label>
-          <label>
-            AUTO Neutral Zone Pickup
-            <input id="autoNeutralZonePickup" type="number" min="0" value="0" />
-          </label>
+          <div class="fuel-buttons positive-buttons">
+            <button id="autoFuelPlus1" type="button" class="counter-btn positive">+1</button>
+            <button id="autoFuelPlus3" type="button" class="counter-btn positive">+3</button>
+            <button id="autoFuelPlus5" type="button" class="counter-btn positive">+5</button>
+          </div>
+          <div class="fuel-buttons negative-buttons">
+            <button id="autoFuelMinus1" type="button" class="counter-btn danger">-1</button>
+            <button id="autoFuelMinus3" type="button" class="counter-btn danger">-3</button>
+            <button id="autoFuelMinus5" type="button" class="counter-btn danger">-5</button>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="ghost nav-step-btn" data-nav="prev">Back</button>
+          <button type="button" class="nav-step-btn" data-nav="next">Next</button>
         </div>
       </section>
 
-      <section class="panel">
-        <h2>Teleop (2026 Rebuilt)</h2>
+      <section class="panel form-step" data-step="2">
+        <h2>Teleoperated</h2>
         <div class="grid two-col">
+          <label>
+            TELE Start Position
+            <select id="teleStartPosition">
+              <option value="Left">Left</option>
+              <option value="Center">Center</option>
+              <option value="Right">Right</option>
+            </select>
+          </label>
           <label>
             TELE Shoot Position
             <select id="teleShootPosition">
@@ -109,36 +155,30 @@
               <option value="Far">Far</option>
             </select>
           </label>
-          <label>
-            TELE Fuel Scored
-            <input id="teleFuelScored" type="number" min="0" value="0" />
+          <label class="toggle">
+            <input id="teleFloorPickup" type="checkbox" />
+            Floor pickup?
           </label>
           <label class="toggle">
-            <input id="telePassNeutralZone" type="checkbox" />
-            TELE Pass from Neutral Zone
+            <input id="telePickupDepot" type="checkbox" />
+            Pickup from depot?
           </label>
           <label class="toggle">
-            <input id="telePassOpponentZone" type="checkbox" />
-            TELE Pass from Opponent Zone
+            <input id="telePickupOutpost" type="checkbox" />
+            Pickup from outpost?
           </label>
-          <label>
-            TELE Depot Pickup
-            <input id="teleDepotPickup" type="number" min="0" value="0" />
+          <label class="toggle">
+            <input id="telePickupNeutralZone" type="checkbox" />
+            Pickup from Neutral Zone?
           </label>
-          <label>
-            TELE Outpost Pickup
-            <input id="teleOutpostPickup" type="number" min="0" value="0" />
+          <label class="toggle">
+            <input id="telePassingNeutralZone" type="checkbox" />
+            Teleop passing/ferrying from neutral zone?
           </label>
-          <label>
-            TELE Floor Pickup
-            <input id="teleFloorPickup" type="number" min="0" value="0" />
+          <label class="toggle">
+            <input id="teleDied" type="checkbox" />
+            Robot Died / Disabled
           </label>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>Endgame & Reliability</h2>
-        <div class="grid two-col">
           <label>
             Endgame
             <select id="endgame">
@@ -158,50 +198,65 @@
             <input id="driverSkill" type="range" min="0" max="5" value="3" />
             <span id="driverValue">3</span>
           </label>
-          <label class="toggle">
-            <input id="died" type="checkbox" />
-            Robot Died / Disabled
-          </label>
         </div>
-      </section>
 
-      <section class="panel">
-        <h2>Quick Fuel Counter</h2>
-        <p class="tiny">Tap buttons to adjust the shared total.</p>
-        <div class="fuel-counter-wrap">
+        <fieldset class="choice-group top-gap">
+          <legend>Teleop Climb</legend>
+          <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="teleClimb" value="L1" />L1</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="L2" />L2</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="L3" />L3</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="Failed Climb" />Failed Climb</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="Other" />Other</label>
+          </div>
+        </fieldset>
+
+        <div class="fuel-counter-wrap top-gap">
+          <p class="tiny">Quick fuel counter for teleop fuel scored.</p>
           <label>
-            Fuel Scored
-            <input id="fuelScoredCounter" type="number" min="0" value="0" />
+            Teleop Fuel Scored
+            <input id="teleFuelScored" type="number" min="0" value="0" />
           </label>
           <div class="fuel-buttons positive-buttons">
-            <button id="fuelPlus1" type="button" class="counter-btn positive">+1</button>
-            <button id="fuelPlus3" type="button" class="counter-btn positive">+3</button>
-            <button id="fuelPlus5" type="button" class="counter-btn positive">+5</button>
+            <button id="teleFuelPlus1" type="button" class="counter-btn positive">+1</button>
+            <button id="teleFuelPlus3" type="button" class="counter-btn positive">+3</button>
+            <button id="teleFuelPlus5" type="button" class="counter-btn positive">+5</button>
           </div>
           <div class="fuel-buttons negative-buttons">
-            <button id="fuelMinus1" type="button" class="counter-btn danger">-1</button>
-            <button id="fuelMinus3" type="button" class="counter-btn danger">-3</button>
-            <button id="fuelMinus5" type="button" class="counter-btn danger">-5</button>
+            <button id="teleFuelMinus1" type="button" class="counter-btn danger">-1</button>
+            <button id="teleFuelMinus3" type="button" class="counter-btn danger">-3</button>
+            <button id="teleFuelMinus5" type="button" class="counter-btn danger">-5</button>
           </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="ghost nav-step-btn" data-nav="prev">Back</button>
+          <button type="button" class="nav-step-btn" data-nav="next">Next</button>
         </div>
       </section>
 
-      <section class="panel">
+      <section class="panel form-step" data-step="3">
         <h2>Notes</h2>
         <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, pickup preference, foul risk..."></textarea>
       </section>
 
-      <section class="panel actions">
-        <h2>Summary</h2>
-        <p id="summary">Estimated contribution: disabled for now (pending final parameters)</p>
+      <section class="panel actions form-step" data-step="3">
+        <h2>Match Entry Actions</h2>
         <div class="button-row">
-          <button id="saveBtn" type="button">Save Entry</button>
-          <button id="downloadBtn" type="button">Download CSV</button>
+          <button id="saveBtn" type="button">Save Match Entry</button>
+          <button id="downloadBtn" type="button">Download Match CSV</button>
           <button id="clearBtn" type="button" class="ghost">Clear Local Data</button>
         </div>
         <p class="tiny">Saved entries: <span id="entryCount">0</span></p>
+        <div class="step-nav">
+          <button type="button" class="ghost nav-step-btn" data-nav="prev">Back</button>
+        </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <p>Make sure when you click save entry, "saved entries: x" goes up by one. If the scouting entries do not save, screen record your form and send it to my phone number: (914) 387-6407 (Floyd).</p>
+    </footer>
 
     <script src="app-sync.js"></script>
     <script src="script.js"></script>
