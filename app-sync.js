@@ -6,11 +6,13 @@ const ScoutingSync = (() => {
 
   const columns = [
     "eventName", "scoutName", "teamNumber", "matchNumber", "alliance", "startPos",
-    "autoStartPosition", "autoShootPosition", "autoFuelScored", "autoPassNeutralZone",
-    "autoClimbL1", "autoDepotPickup", "autoOutpostPickup", "autoNeutralZonePickup",
-    "teleShootPosition", "teleFuelScored", "fuelScoredCounter", "telePassNeutralZone",
-    "telePassOpponentZone", "teleDepotPickup", "teleOutpostPickup", "teleFloorPickup",
-    "defense", "driverSkill", "died", "notes", "timestamp"
+    "autoStartPosition", "autoShootPosition", "autoFuelScored", "autoFuelAccuracy",
+    "autoFloorPickup", "autoPickupDepot", "autoPickupOutpost", "autoPickupNeutralZone",
+    "autoPassingNeutralZone", "autoDied", "autoClimb",
+    "teleStartPosition", "teleShootPosition", "teleFuelScored", "teleHumanPlayerFuelScored",
+    "teleFuelAccuracy", "teleFloorPickup", "telePickupDepot", "telePickupOutpost",
+    "telePickupNeutralZone", "telePassingNeutralZone", "teleDied", "teleClimb",
+    "defense", "driverSkill", "penaltyPoints", "violationName", "notes", "timestamp"
   ];
 
   const readJson = (key) => JSON.parse(localStorage.getItem(key) || "[]");

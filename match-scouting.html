@@ -117,6 +117,10 @@
             Auto Fuel Scored
             <input id="autoFuelScored" type="number" min="0" value="0" />
           </label>
+          <label>
+            Auto Fuel Accuracy Estimate (%)
+            <input id="autoFuelAccuracy" type="number" min="0" max="100" value="0" />
+          </label>
           <div class="fuel-buttons positive-buttons">
             <button id="autoFuelPlus1" type="button" class="counter-btn positive">+1</button>
             <button id="autoFuelPlus3" type="button" class="counter-btn positive">+3</button>
@@ -210,6 +214,14 @@
             Teleop Fuel Scored
             <input id="teleFuelScored" type="number" min="0" value="0" />
           </label>
+          <label>
+            Human Player Fuel Scored
+            <input id="teleHumanPlayerFuelScored" type="number" min="0" value="0" />
+          </label>
+          <label>
+            Teleop Fuel Accuracy Estimate (%)
+            <input id="teleFuelAccuracy" type="number" min="0" max="100" value="0" />
+          </label>
           <div class="fuel-buttons positive-buttons">
             <button id="teleFuelPlus1" type="button" class="counter-btn positive">+1</button>
             <button id="teleFuelPlus3" type="button" class="counter-btn positive">+3</button>
@@ -232,7 +244,20 @@
 
       <section class="panel form-step" data-step="3">
         <h2>Notes</h2>
-        <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, pickup preference, foul risk..."></textarea>
+        <div class="grid two-col">
+          <label>
+            Penalty Points
+            <input id="penaltyPoints" type="number" min="0" value="0" />
+          </label>
+          <label>
+            Which violation?
+            <input id="violationName" type="text" placeholder="If known, name the violation" />
+          </label>
+        </div>
+        <label class="top-gap">
+          Additional Notes
+          <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, pickup preference, foul risk..."></textarea>
+        </label>
       </section>
 
       <section class="panel actions form-step" data-step="3">

@@ -8,6 +8,7 @@ const fieldIds = [
   "autoStartPosition",
   "autoShootPosition",
   "autoFuelScored",
+  "autoFuelAccuracy",
   "autoFloorPickup",
   "autoPickupDepot",
   "autoPickupOutpost",
@@ -17,6 +18,8 @@ const fieldIds = [
   "teleStartPosition",
   "teleShootPosition",
   "teleFuelScored",
+  "teleHumanPlayerFuelScored",
+  "teleFuelAccuracy",
   "teleFloorPickup",
   "telePickupDepot",
   "telePickupOutpost",
@@ -25,6 +28,8 @@ const fieldIds = [
   "teleDied",
   "defense",
   "driverSkill",
+  "penaltyPoints",
+  "violationName",
   "notes",
 ];
 
@@ -149,7 +154,7 @@ getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
 getField("clearBtn").addEventListener("click", clearEntries);
 
-for (const fieldId of ["autoFuelScored", "teleFuelScored"]) {
+for (const fieldId of ["autoFuelScored", "autoFuelAccuracy", "teleFuelScored", "teleHumanPlayerFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
   getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
 }
 
