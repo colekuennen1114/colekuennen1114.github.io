@@ -23,7 +23,6 @@ const fieldIds = [
   "telePickupNeutralZone",
   "telePassingNeutralZone",
   "teleDied",
-  "endgame",
   "defense",
   "driverSkill",
   "notes",
@@ -158,15 +157,19 @@ const counterBindings = [
   ["autoFuelPlus1", "autoFuelScored", 1],
   ["autoFuelPlus3", "autoFuelScored", 3],
   ["autoFuelPlus5", "autoFuelScored", 5],
+  ["autoFuelPlus10", "autoFuelScored", 10],
   ["autoFuelMinus1", "autoFuelScored", -1],
   ["autoFuelMinus3", "autoFuelScored", -3],
   ["autoFuelMinus5", "autoFuelScored", -5],
+  ["autoFuelMinus10", "autoFuelScored", -10],
   ["teleFuelPlus1", "teleFuelScored", 1],
   ["teleFuelPlus3", "teleFuelScored", 3],
   ["teleFuelPlus5", "teleFuelScored", 5],
+  ["teleFuelPlus10", "teleFuelScored", 10],
   ["teleFuelMinus1", "teleFuelScored", -1],
   ["teleFuelMinus3", "teleFuelScored", -3],
   ["teleFuelMinus5", "teleFuelScored", -5],
+  ["teleFuelMinus10", "teleFuelScored", -10],
 ];
 
 for (const [buttonId, fieldId, delta] of counterBindings) {

@@ -10,7 +10,7 @@ const ScoutingSync = (() => {
     "autoClimbL1", "autoDepotPickup", "autoOutpostPickup", "autoNeutralZonePickup",
     "teleShootPosition", "teleFuelScored", "fuelScoredCounter", "telePassNeutralZone",
     "telePassOpponentZone", "teleDepotPickup", "teleOutpostPickup", "teleFloorPickup",
-    "endgame", "defense", "driverSkill", "died", "notes", "timestamp"
+    "defense", "driverSkill", "died", "notes", "timestamp"
   ];
 
   const readJson = (key) => JSON.parse(localStorage.getItem(key) || "[]");

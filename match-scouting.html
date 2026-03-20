@@ -56,7 +56,7 @@
 
       <section class="panel form-step" data-step="1">
         <h2>Autonomous</h2>
-        <div class="grid two-col">
+        <div class="grid two-col stacked-toggles">
           <label>
             AUTO Start Position
             <select id="autoStartPosition">
@@ -121,11 +121,13 @@
             <button id="autoFuelPlus1" type="button" class="counter-btn positive">+1</button>
             <button id="autoFuelPlus3" type="button" class="counter-btn positive">+3</button>
             <button id="autoFuelPlus5" type="button" class="counter-btn positive">+5</button>
+            <button id="autoFuelPlus10" type="button" class="counter-btn positive">+10</button>
           </div>
           <div class="fuel-buttons negative-buttons">
             <button id="autoFuelMinus1" type="button" class="counter-btn danger">-1</button>
             <button id="autoFuelMinus3" type="button" class="counter-btn danger">-3</button>
             <button id="autoFuelMinus5" type="button" class="counter-btn danger">-5</button>
+            <button id="autoFuelMinus10" type="button" class="counter-btn danger">-10</button>
           </div>
         </div>
 
@@ -137,7 +139,7 @@
 
       <section class="panel form-step" data-step="2">
         <h2>Teleoperated</h2>
-        <div class="grid two-col">
+        <div class="grid two-col stacked-toggles">
           <label>
             TELE Start Position
             <select id="teleStartPosition">
@@ -180,15 +182,6 @@
             Robot Died / Disabled
           </label>
           <label>
-            Endgame
-            <select id="endgame">
-              <option value="None">None</option>
-              <option value="L1">L1</option>
-              <option value="L2">L2</option>
-              <option value="L3">L3</option>
-            </select>
-          </label>
-          <label>
             Defense Impact (0-5)
             <input id="defense" type="range" min="0" max="5" value="2" />
             <span id="defenseValue">2</span>
@@ -201,7 +194,7 @@
         </div>
 
         <fieldset class="choice-group top-gap">
-          <legend>Teleop Climb</legend>
+          <legend>Endgame Climb</legend>
           <div class="option-grid compact-options">
             <label class="choice-option"><input type="radio" name="teleClimb" value="L1" />L1</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L2" />L2</label>
@@ -221,11 +214,13 @@
             <button id="teleFuelPlus1" type="button" class="counter-btn positive">+1</button>
             <button id="teleFuelPlus3" type="button" class="counter-btn positive">+3</button>
             <button id="teleFuelPlus5" type="button" class="counter-btn positive">+5</button>
+            <button id="teleFuelPlus10" type="button" class="counter-btn positive">+10</button>
           </div>
           <div class="fuel-buttons negative-buttons">
             <button id="teleFuelMinus1" type="button" class="counter-btn danger">-1</button>
             <button id="teleFuelMinus3" type="button" class="counter-btn danger">-3</button>
             <button id="teleFuelMinus5" type="button" class="counter-btn danger">-5</button>
+            <button id="teleFuelMinus10" type="button" class="counter-btn danger">-10</button>
           </div>
         </div>
 
@@ -256,6 +251,7 @@
 
     <footer class="site-footer">
       <p>Make sure when you click save entry, "saved entries: x" goes up by one. If the scouting entries do not save, screen record your form and send it to my phone number: (914) 387-6407 (Floyd).</p>
+          <p><strong>Press save match entry when you're done scouting a match! When you're done scouting for the day, press DOWNLOAD csv and then send it to my phone number!</strong></p>
     </footer>
 
     <script src="app-sync.js"></script>
