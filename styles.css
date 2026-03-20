@@ -29,7 +29,8 @@ body {
 .home-layout {
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  place-content: center;
+  gap: 1rem;
   padding: 1rem;
 }
 
@@ -52,9 +53,9 @@ body {
 
 .status-pill {
   display: inline-block;
-  background: rgba(79, 140, 255, 0.18);
-  color: #d8e6ff;
-  border: 1px solid rgba(123, 168, 255, 0.35);
+  background: rgba(123, 19, 33, 0.22);
+  color: #ffd7dd;
+  border: 1px solid rgba(151, 38, 55, 0.55);
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -365,4 +366,35 @@ button:hover {
     text-align: center;
     border-radius: 16px;
   }
+}
+
+
+.info-card {
+  width: min(540px, 100%);
+  text-align: center;
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.is-active {
+  display: grid;
+  gap: 1rem;
+}
+
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.step-nav .nav-step-btn {
+  min-width: 120px;
+}
+
+.compact-options {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  margin-bottom: 0;
 }

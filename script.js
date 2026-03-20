@@ -1,4 +1,4 @@
-const ids = [
+const fieldIds = [
   "eventName",
   "scoutName",
   "teamNumber",
@@ -8,33 +8,41 @@ const ids = [
   "autoStartPosition",
   "autoShootPosition",
   "autoFuelScored",
-  "autoPassNeutralZone",
-  "autoClimbL1",
-  "autoDepotPickup",
-  "autoOutpostPickup",
-  "autoNeutralZonePickup",
+  "autoFloorPickup",
+  "autoPickupDepot",
+  "autoPickupOutpost",
+  "autoPickupNeutralZone",
+  "autoPassingNeutralZone",
+  "autoDied",
+  "teleStartPosition",
   "teleShootPosition",
   "teleFuelScored",
-  "fuelScoredCounter",
-  "telePassNeutralZone",
-  "telePassOpponentZone",
-  "teleDepotPickup",
-  "teleOutpostPickup",
   "teleFloorPickup",
+  "telePickupDepot",
+  "telePickupOutpost",
+  "telePickupNeutralZone",
+  "telePassingNeutralZone",
+  "teleDied",
   "endgame",
   "defense",
   "driverSkill",
-  "died",
   "notes",
 ];
+
+const radioGroups = ["autoClimb", "teleClimb"];
+const stepPanels = Array.from(document.querySelectorAll(".form-step"));
+let currentStep = 0;
 
 const getField = (id) => document.getElementById(id);
 
 function collectEntry() {
   const entry = {};
-  for (const id of ids) {
+  for (const id of fieldIds) {
     const field = getField(id);
     entry[id] = field.type === "checkbox" ? field.checked : field.value;
+  }
+  for (const groupName of radioGroups) {
+    entry[groupName] = document.querySelector(`input[name="${groupName}"]:checked`)?.value || "";
   }
   entry.timestamp = new Date().toISOString();
   return entry;
@@ -45,7 +53,7 @@ function updateEntryCount() {
 }
 
 function clearForm() {
-  for (const id of ids) {
+  for (const id of fieldIds) {
     const field = getField(id);
     if (field.type === "checkbox") {
       field.checked = false;
@@ -57,9 +65,17 @@ function clearForm() {
       field.value = field.defaultValue || "";
     }
   }
+
+  for (const groupName of radioGroups) {
+    const checked = document.querySelector(`input[name="${groupName}"]:checked`);
+    if (checked) {
+      checked.checked = false;
+    }
+  }
+
   getField("defenseValue").textContent = getField("defense").value;
   getField("driverValue").textContent = getField("driverSkill").value;
-  setCounterValue(getCounterValue());
+  showStep(0);
 }
 
 async function saveEntry() {
@@ -100,6 +116,28 @@ function clearEntries() {
   updateEntryCount();
 }
 
+function setCounterValue(fieldId, value) {
+  getField(fieldId).value = String(Math.max(0, value));
+}
+
+function getCounterValue(fieldId) {
+  const value = Number(getField(fieldId).value || 0);
+  return Number.isFinite(value) ? Math.max(0, value) : 0;
+}
+
+function adjustCounter(fieldId, delta) {
+  setCounterValue(fieldId, getCounterValue(fieldId) + delta);
+}
+
+function showStep(stepIndex) {
+  currentStep = Math.max(0, Math.min(3, stepIndex));
+  for (const panel of stepPanels) {
+    const panelStep = Number(panel.dataset.step);
+    panel.classList.toggle("is-active", panelStep === currentStep);
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 getField("defense").addEventListener("input", (e) => {
   getField("defenseValue").textContent = e.target.value;
 });
@@ -112,32 +150,39 @@ getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
 getField("clearBtn").addEventListener("click", clearEntries);
 
-function getCounterValue() {
-  const value = Number(getField("fuelScoredCounter").value || 0);
-  return Number.isFinite(value) ? Math.max(0, value) : 0;
+for (const fieldId of ["autoFuelScored", "teleFuelScored"]) {
+  getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
 }
 
-function setCounterValue(value) {
-  getField("fuelScoredCounter").value = String(Math.max(0, value));
-}
+const counterBindings = [
+  ["autoFuelPlus1", "autoFuelScored", 1],
+  ["autoFuelPlus3", "autoFuelScored", 3],
+  ["autoFuelPlus5", "autoFuelScored", 5],
+  ["autoFuelMinus1", "autoFuelScored", -1],
+  ["autoFuelMinus3", "autoFuelScored", -3],
+  ["autoFuelMinus5", "autoFuelScored", -5],
+  ["teleFuelPlus1", "teleFuelScored", 1],
+  ["teleFuelPlus3", "teleFuelScored", 3],
+  ["teleFuelPlus5", "teleFuelScored", 5],
+  ["teleFuelMinus1", "teleFuelScored", -1],
+  ["teleFuelMinus3", "teleFuelScored", -3],
+  ["teleFuelMinus5", "teleFuelScored", -5],
+];
 
-function adjustCounter(delta) {
-  setCounterValue(getCounterValue() + delta);
-}
-
-getField("fuelPlus1").addEventListener("click", () => adjustCounter(1));
-getField("fuelPlus3").addEventListener("click", () => adjustCounter(3));
-getField("fuelPlus5").addEventListener("click", () => adjustCounter(5));
-getField("fuelMinus1").addEventListener("click", () => adjustCounter(-1));
-getField("fuelMinus3").addEventListener("click", () => adjustCounter(-3));
-getField("fuelMinus5").addEventListener("click", () => adjustCounter(-5));
-getField("fuelScoredCounter").addEventListener("input", () => setCounterValue(getCounterValue()));
-
-updateEntryCount();
-window.ScoutingSync.registerServiceWorker();
-window.ScoutingSync.flushPendingUploads().catch(() => {});
-
-for (const id of ["fuelPlus1", "fuelPlus3", "fuelPlus5", "fuelMinus1", "fuelMinus3", "fuelMinus5"]) {
-  const button = getField(id);
+for (const [buttonId, fieldId, delta] of counterBindings) {
+  const button = getField(buttonId);
+  button.addEventListener("click", () => adjustCounter(fieldId, delta));
   button.addEventListener("dblclick", (event) => event.preventDefault());
 }
+
+for (const button of document.querySelectorAll(".nav-step-btn")) {
+  button.addEventListener("click", () => {
+    const delta = button.dataset.nav === "next" ? 1 : -1;
+    showStep(currentStep + delta);
+  });
+}
+
+updateEntryCount();
+showStep(0);
+window.ScoutingSync.registerServiceWorker();
+window.ScoutingSync.flushPendingUploads().catch(() => {});
