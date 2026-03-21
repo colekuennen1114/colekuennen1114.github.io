@@ -5,26 +5,30 @@ const fieldIds = [
   "matchNumber",
   "alliance",
   "startPos",
-  "autoStartPosition",
-  "autoShootPosition",
-  "autoFuelScored",
+  "autoShootDistance",
+  "autoHumanPlayerFuelScored",
   "autoFuelAccuracy",
-  "autoFloorPickup",
-  "autoPickupDepot",
-  "autoPickupOutpost",
-  "autoPickupNeutralZone",
+  "autoFuelScored",
+  "autoFloorIntake",
+  "autoTrench",
+  "autoBump",
+  "autoIntakeOutpost",
+  "autoIntakeNeutralZone",
   "autoPassingNeutralZone",
+  "autoFerryingNeutralZone",
   "autoDied",
   "teleStartPosition",
-  "teleShootPosition",
-  "teleFuelScored",
+  "teleShootDistance",
   "teleHumanPlayerFuelScored",
   "teleFuelAccuracy",
-  "teleFloorPickup",
-  "telePickupDepot",
-  "telePickupOutpost",
-  "telePickupNeutralZone",
+  "teleFuelScored",
+  "teleFloorIntake",
+  "teleTrench",
+  "teleBump",
+  "teleIntakeOutpost",
+  "teleIntakeNeutralZone",
   "telePassingNeutralZone",
+  "teleFerryingNeutralZone",
   "teleDied",
   "defense",
   "driverSkill",
@@ -62,7 +66,7 @@ function clearForm() {
     if (field.type === "checkbox") {
       field.checked = false;
     } else if (field.type === "range") {
-      field.value = field.id === "defense" ? "2" : "3";
+      field.value = field.id === "defense" ? "0" : "3";
     } else if (field.tagName === "SELECT") {
       field.selectedIndex = 0;
     } else {
@@ -76,7 +80,6 @@ function clearForm() {
       checked.checked = false;
     }
   }
-
   getField("defenseValue").textContent = getField("defense").value;
   getField("driverValue").textContent = getField("driverSkill").value;
   showStep(0);
@@ -133,6 +136,33 @@ function adjustCounter(fieldId, delta) {
   setCounterValue(fieldId, getCounterValue(fieldId) + delta);
 }
 
+
+function setupClearDataModal(triggerButtonId, onConfirm) {
+  const triggerButton = getField(triggerButtonId);
+  const modal = getField("clearDataModal");
+  const confirmButton = getField("confirmClearBtn");
+  const cancelButton = getField("cancelClearBtn");
+
+  const closeModal = () => {
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+    triggerButton.focus();
+  };
+
+  triggerButton.addEventListener("click", () => {
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    confirmButton.focus();
+  });
+
+  confirmButton.addEventListener("click", () => {
+    onConfirm();
+    closeModal();
+  });
+
+  cancelButton.addEventListener("click", closeModal);
+}
+
 function showStep(stepIndex) {
   currentStep = Math.max(0, Math.min(3, stepIndex));
   for (const panel of stepPanels) {
@@ -152,9 +182,9 @@ getField("driverSkill").addEventListener("input", (e) => {
 
 getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
-getField("clearBtn").addEventListener("click", clearEntries);
+setupClearDataModal("clearBtn", clearEntries);
 
-for (const fieldId of ["autoFuelScored", "autoFuelAccuracy", "teleFuelScored", "teleHumanPlayerFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
+for (const fieldId of ["autoHumanPlayerFuelScored", "autoFuelScored", "autoFuelAccuracy", "teleHumanPlayerFuelScored", "teleFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
   getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
 }
 
@@ -194,3 +224,4 @@ updateEntryCount();
 showStep(0);
 window.ScoutingSync.registerServiceWorker();
 window.ScoutingSync.flushPendingUploads().catch(() => {});
+

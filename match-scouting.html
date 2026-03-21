@@ -58,16 +58,8 @@
         <h2>Autonomous</h2>
         <div class="grid two-col stacked-toggles">
           <label>
-            AUTO Start Position
-            <select id="autoStartPosition">
-              <option value="Left">Left</option>
-              <option value="Center">Center</option>
-              <option value="Right">Right</option>
-            </select>
-          </label>
-          <label>
-            AUTO Shoot Position
-            <select id="autoShootPosition">
+            AUTO Shoot Distance
+            <select id="autoShootDistance">
               <option value="None">None</option>
               <option value="Close">Close</option>
               <option value="Mid">Mid</option>
@@ -75,51 +67,62 @@
             </select>
           </label>
           <label class="toggle">
-            <input id="autoFloorPickup" type="checkbox" />
-            Floor pickup?
+            <input id="autoFloorIntake" type="checkbox" />
+            Floor intake?
           </label>
           <label class="toggle">
-            <input id="autoPickupDepot" type="checkbox" />
-            Pickup from depot?
+            <input id="autoTrench" type="checkbox" />
+            Trench?
           </label>
           <label class="toggle">
-            <input id="autoPickupOutpost" type="checkbox" />
-            Pickup from outpost?
+            <input id="autoBump" type="checkbox" />
+            Bump?
           </label>
           <label class="toggle">
-            <input id="autoPickupNeutralZone" type="checkbox" />
-            Pickup from Neutral Zone?
+            <input id="autoIntakeOutpost" type="checkbox" />
+            Intake from outpost?
           </label>
           <label class="toggle">
+            <input id="autoIntakeNeutralZone" type="checkbox" />
+            Intake from Neutral Zone?
+          </label>
+          <label class="toggle rich-toggle">
             <input id="autoPassingNeutralZone" type="checkbox" />
-            Auto passing/ferrying from neutral zone?
+            <span>Auto Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="autoFerryingNeutralZone" type="checkbox" />
+            <span>Auto Ferrying (<u>pushing/carrying</u> fuel from neutral to alliance zone)</span>
           </label>
           <label class="toggle">
             <input id="autoDied" type="checkbox" />
-            Robot Died / Disabled
+            Robot Died / Disabled / Didn&apos;t Move
           </label>
         </div>
 
         <fieldset class="choice-group top-gap">
           <legend>Auto Climb</legend>
           <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" />No climb</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L1" />L1</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="Failed Climb" />Failed Climb</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="Other" />Other</label>
           </div>
         </fieldset>
 
         <div class="fuel-counter-wrap top-gap">
-          <p class="tiny">Quick fuel counter for auto fuel scored.</p>
           <label>
-            Auto Fuel Scored
-            <input id="autoFuelScored" type="number" min="0" value="0" />
+            Auto Human Player Fuel Scored
+            <input id="autoHumanPlayerFuelScored" type="number" min="0" value="0" />
           </label>
           <label>
             Auto Fuel Accuracy Estimate (%)
             <input id="autoFuelAccuracy" type="number" min="0" max="100" value="0" />
+          </label>
+          <label>
+            Auto Fuel Scored
+            <input id="autoFuelScored" type="number" min="0" value="0" />
           </label>
           <div class="fuel-buttons positive-buttons">
             <button id="autoFuelPlus1" type="button" class="counter-btn positive">+1</button>
@@ -153,8 +156,8 @@
             </select>
           </label>
           <label>
-            TELE Shoot Position
-            <select id="teleShootPosition">
+            TELE Shoot Distance
+            <select id="teleShootDistance">
               <option value="None">None</option>
               <option value="Close">Close</option>
               <option value="Mid">Mid</option>
@@ -162,33 +165,41 @@
             </select>
           </label>
           <label class="toggle">
-            <input id="teleFloorPickup" type="checkbox" />
-            Floor pickup?
+            <input id="teleFloorIntake" type="checkbox" />
+            Floor intake?
           </label>
           <label class="toggle">
-            <input id="telePickupDepot" type="checkbox" />
-            Pickup from depot?
+            <input id="teleTrench" type="checkbox" />
+            Trench?
           </label>
           <label class="toggle">
-            <input id="telePickupOutpost" type="checkbox" />
-            Pickup from outpost?
+            <input id="teleBump" type="checkbox" />
+            Bump?
           </label>
           <label class="toggle">
-            <input id="telePickupNeutralZone" type="checkbox" />
-            Pickup from Neutral Zone?
+            <input id="teleIntakeOutpost" type="checkbox" />
+            Intake from outpost?
           </label>
           <label class="toggle">
+            <input id="teleIntakeNeutralZone" type="checkbox" />
+            Intake from Neutral Zone?
+          </label>
+          <label class="toggle rich-toggle">
             <input id="telePassingNeutralZone" type="checkbox" />
-            Teleop passing/ferrying from neutral zone?
+            <span>Teleop Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="teleFerryingNeutralZone" type="checkbox" />
+            <span>Teleop Ferrying (<u>pushing/carrying</u> fuel from neutral to alliance zone)</span>
           </label>
           <label class="toggle">
             <input id="teleDied" type="checkbox" />
-            Robot Died / Disabled
+            Robot Died / Disabled / Didn&apos;t Move
           </label>
           <label>
             Defense Impact (0-5)
-            <input id="defense" type="range" min="0" max="5" value="2" />
-            <span id="defenseValue">2</span>
+            <input id="defense" type="range" min="0" max="5" value="0" />
+            <span id="defenseValue">0</span>
           </label>
           <label>
             Driver Skill (0-5)
@@ -200,27 +211,26 @@
         <fieldset class="choice-group top-gap">
           <legend>Endgame Climb</legend>
           <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="teleClimb" value="No Climb" />No climb</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L1" />L1</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L2" />L2</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L3" />L3</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="Failed Climb" />Failed Climb</label>
-            <label class="choice-option"><input type="radio" name="teleClimb" value="Other" />Other</label>
           </div>
         </fieldset>
 
         <div class="fuel-counter-wrap top-gap">
-          <p class="tiny">Quick fuel counter for teleop fuel scored.</p>
           <label>
-            Teleop Fuel Scored
-            <input id="teleFuelScored" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Human Player Fuel Scored
+            Teleop Human Player Fuel Scored
             <input id="teleHumanPlayerFuelScored" type="number" min="0" value="0" />
           </label>
           <label>
             Teleop Fuel Accuracy Estimate (%)
             <input id="teleFuelAccuracy" type="number" min="0" max="100" value="0" />
+          </label>
+          <label>
+            Teleop Fuel Scored
+            <input id="teleFuelScored" type="number" min="0" value="0" />
           </label>
           <div class="fuel-buttons positive-buttons">
             <button id="teleFuelPlus1" type="button" class="counter-btn positive">+1</button>
@@ -256,7 +266,7 @@
         </div>
         <label class="top-gap">
           Additional Notes
-          <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, pickup preference, foul risk..."></textarea>
+          <textarea id="notes" rows="4" placeholder="Cycle speed, pathing consistency, intake preference, foul risk..."></textarea>
         </label>
       </section>
 
@@ -276,8 +286,20 @@
 
     <footer class="site-footer">
       <p>Make sure when you click save entry, "saved entries: x" goes up by one. If the scouting entries do not save, screen record your form and send it to my phone number: (914) 387-6407 (Floyd).</p>
-          <p><strong>Press save match entry when you're done scouting a match! When you're done scouting for the day, press DOWNLOAD csv and then send it to my phone number!</strong></p>
+      <p><strong>Press save match entry when you're done scouting a match! When you're done scouting for the day, press DOWNLOAD csv and then send it to my phone number!</strong></p>
     </footer>
+
+
+    <div id="clearDataModal" class="modal-backdrop" hidden>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="clearDataTitle" aria-describedby="clearDataMessage">
+        <h2 id="clearDataTitle">Delete local data?</h2>
+        <p id="clearDataMessage">This will permanently remove all saved scouting entries from this device. Do you want to continue?</p>
+        <div class="button-row modal-actions">
+          <button id="confirmClearBtn" type="button">Yes, Delete Data</button>
+          <button id="cancelClearBtn" type="button" class="ghost">No, Keep Data</button>
+        </div>
+      </section>
+    </div>
 
     <script src="app-sync.js"></script>
     <script src="script.js"></script>
