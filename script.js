@@ -48,6 +48,8 @@ const clearDataModal = document.getElementById("clearDataModal");
 const confirmClearBtn = document.getElementById("confirmClearBtn");
 const cancelClearBtn = document.getElementById("cancelClearBtn");
 const statusMessage = document.getElementById("submitStatus");
+const statusPrimary = document.getElementById("submitStatusPrimary");
+const statusHint = document.getElementById("submitStatusHint");
 let currentStep = 0;
 
 const getField = (id) => document.getElementById(id);
@@ -69,10 +71,18 @@ function collectEntry() {
   return entry;
 }
 
-function setStatus(message, tone = "") {
+function setStatus(message, tone = "", hint = "") {
   if (!statusMessage) return;
-  statusMessage.textContent = message;
-  statusMessage.className = `status-message${tone ? ` ${tone}` : ""}`;
+  if (statusPrimary) {
+    statusPrimary.textContent = message;
+  } else {
+    statusMessage.textContent = message;
+  }
+  if (statusHint) {
+    statusHint.textContent = hint;
+    statusHint.hidden = !hint;
+  }
+  statusMessage.className = `tiny status-message${tone ? ` ${tone}` : ""}`;
 }
 
 function clearForm() {
@@ -139,7 +149,7 @@ async function submitEntry() {
   }
 
   setSubmittingState(true);
-  setStatus("Submitting…");
+  setStatus("Submitting…", "", "Please wait a few seconds.");
 
   try {
     const response = await fetch(APPS_SCRIPT_URL, {
@@ -152,7 +162,8 @@ async function submitEntry() {
 
     if (result.status === "success") {
       clearForm();
-      setStatus("Submitted successfully!", "success");
+      sessionStorage.setItem("scouting_toast", "Match submission recorded.");
+      window.location.href = "./";
       return;
     }
 

@@ -277,7 +277,10 @@
           <button id="downloadBtn" type="button">Download Match CSV</button>
           <button id="clearBtn" type="button" class="ghost">Clear Current Form</button>
         </div>
-        <p id="submitStatus" class="tiny status-message" aria-live="polite"></p>
+        <p id="submitStatus" class="tiny status-message" aria-live="polite">
+          <span id="submitStatusPrimary"></span>
+          <span id="submitStatusHint" class="status-hint"></span>
+        </p>
         <div class="step-nav">
           <button type="button" class="ghost nav-step-btn" data-nav="prev">Back</button>
         </div>
