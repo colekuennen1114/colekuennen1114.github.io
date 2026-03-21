@@ -149,7 +149,7 @@ async function submitEntry() {
   }
 
   setSubmittingState(true);
-  setStatus("Submitting…", "", "This can take up to a couple minutes.");
+  setStatus("Submitting…", "", "Please wait a few seconds.");
 
   try {
     const response = await fetch(APPS_SCRIPT_URL, {
