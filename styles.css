@@ -298,6 +298,50 @@ button:hover {
   flex: 0 0 auto;
 }
 
+
+.status-message {
+  min-height: 1.25rem;
+}
+
+.status-message.success {
+  color: #7ee2a0;
+}
+
+.status-message.error {
+  color: #ff9fa8;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 1100;
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-card {
+  width: min(420px, 100%);
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(14, 14, 14, 0.98));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px var(--shadow);
+  padding: 1rem;
+}
+
+.modal-card h2 {
+  margin-top: 0;
+}
+
+.modal-actions {
+  justify-content: flex-end;
+}
+
 .toast {
   position: fixed;
   left: 50%;

@@ -273,11 +273,11 @@
       <section class="panel actions form-step" data-step="3">
         <h2>Match Entry Actions</h2>
         <div class="button-row">
-          <button id="saveBtn" type="button">Save Match Entry</button>
+          <button id="saveBtn" type="button">Submit Match Entry</button>
           <button id="downloadBtn" type="button">Download Match CSV</button>
-          <button id="clearBtn" type="button" class="ghost" data-confirm-default="Clear Local Data" data-confirm-text="Confirm Delete Data">Clear Local Data</button>
+          <button id="clearBtn" type="button" class="ghost">Clear Current Form</button>
         </div>
-        <p class="tiny">Saved entries: <span id="entryCount">0</span></p>
+        <p id="submitStatus" class="tiny status-message" aria-live="polite"></p>
         <div class="step-nav">
           <button type="button" class="ghost nav-step-btn" data-nav="prev">Back</button>
         </div>
@@ -285,18 +285,18 @@
     </main>
 
     <footer class="site-footer">
-      <p>Make sure when you click save entry, "saved entries: x" goes up by one. If the scouting entries do not save, screen record your form and send it to my phone number: (914) 387-6407 (Floyd).</p>
-      <p><strong>Press save match entry when you're done scouting a match! When you're done scouting for the day, press DOWNLOAD csv and then send it to my phone number!</strong></p>
+      <p>Press submit match entry when you're done scouting a match. If the scouting entry does not submit, download the CSV and text it to my phone number: (914) 387-6407 (Floyd).</p>
+      <p><strong>Download CSV if you want a copy of the current form before you clear it.</strong></p>
     </footer>
 
 
     <div id="clearDataModal" class="modal-backdrop" hidden>
       <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="clearDataTitle" aria-describedby="clearDataMessage">
-        <h2 id="clearDataTitle">Delete local data?</h2>
-        <p id="clearDataMessage">This will permanently remove all saved scouting entries from this device. Do you want to continue?</p>
+        <h2 id="clearDataTitle">Clear current form?</h2>
+        <p id="clearDataMessage">This will remove the data currently entered in the form. Do you want to continue?</p>
         <div class="button-row modal-actions">
-          <button id="confirmClearBtn" type="button">Yes, Delete Data</button>
-          <button id="cancelClearBtn" type="button" class="ghost">No, Keep Data</button>
+          <button id="confirmClearBtn" type="button">Yes, Clear Form</button>
+          <button id="cancelClearBtn" type="button" class="ghost">No, Keep It</button>
         </div>
       </section>
     </div>
