@@ -16,7 +16,6 @@ const fieldIds = [
   "autoPassingNeutralZone",
   "autoFerryingNeutralZone",
   "autoDied",
-  "autoClimbOtherText",
   "teleStartPosition",
   "teleShootDistance",
   "teleFuelScored",
@@ -30,7 +29,6 @@ const fieldIds = [
   "telePassingNeutralZone",
   "teleFerryingNeutralZone",
   "teleDied",
-  "teleClimbOtherText",
   "defense",
   "driverSkill",
   "penaltyPoints",
@@ -82,10 +80,6 @@ function clearForm() {
     }
   }
 
-  getField("autoClimbOtherWrap").hidden = true;
-  getField("autoClimbOtherText").disabled = true;
-  getField("teleClimbOtherWrap").hidden = true;
-  getField("teleClimbOtherText").disabled = true;
   getField("defenseValue").textContent = getField("defense").value;
   getField("driverValue").textContent = getField("driverSkill").value;
   showStep(0);
@@ -143,24 +137,6 @@ function adjustCounter(fieldId, delta) {
 }
 
 
-function setConditionalOtherField(groupName, fieldId, wrapId) {
-  const syncState = () => {
-    const isOther = document.querySelector(`input[name="${groupName}"]:checked`)?.value === "Other";
-    const wrap = getField(wrapId);
-    const field = getField(fieldId);
-    wrap.hidden = !isOther;
-    field.disabled = !isOther;
-    if (!isOther) {
-      field.value = "";
-    }
-  };
-
-  for (const radio of document.querySelectorAll(`input[name="${groupName}"]`)) {
-    radio.addEventListener("change", syncState);
-  }
-
-  syncState();
-}
 
 function setupConfirmButton(buttonId, onConfirm) {
   const button = getField(buttonId);
@@ -251,7 +227,3 @@ updateEntryCount();
 showStep(0);
 window.ScoutingSync.registerServiceWorker();
 window.ScoutingSync.flushPendingUploads().catch(() => {});
-
-
-setConditionalOtherField("autoClimb", "autoClimbOtherText", "autoClimbOtherWrap");
-setConditionalOtherField("teleClimb", "teleClimbOtherText", "teleClimbOtherWrap");
