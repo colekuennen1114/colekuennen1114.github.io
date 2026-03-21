@@ -303,6 +303,15 @@ button:hover {
   min-height: 1.25rem;
 }
 
+.status-hint {
+  color: #8c96a8;
+  margin-left: 0.35rem;
+}
+
+.status-hint[hidden] {
+  display: none;
+}
+
 .status-message.success {
   color: #7ee2a0;
 }
