@@ -6,12 +6,12 @@ const ScoutingSync = (() => {
 
   const columns = [
     "eventName", "scoutName", "teamNumber", "matchNumber", "alliance", "startPos",
-    "autoShootDistance", "autoHumanPlayerFuelScored", "autoFuelAccuracy", "autoFuelScored", "autoFloorIntake",
+    "autoShootDistance", "autoFuelScored", "autoFuelAccuracy", "autoFloorIntake",
     "autoTrench", "autoBump", "autoIntakeOutpost", "autoIntakeNeutralZone",
-    "autoPassingNeutralZone", "autoFerryingNeutralZone", "autoDied", "autoClimb",
-    "teleStartPosition", "teleShootDistance", "teleHumanPlayerFuelScored", "teleFuelAccuracy", "teleFuelScored",
-    "teleFloorIntake", "teleTrench", "teleBump", "teleIntakeOutpost",
-    "teleIntakeNeutralZone", "telePassingNeutralZone", "teleFerryingNeutralZone", "teleDied", "teleClimb",
+    "autoPassingNeutralZone", "autoFerryingNeutralZone", "autoDied", "autoClimb", "autoClimbOtherText",
+    "teleStartPosition", "teleShootDistance", "teleFuelScored", "teleHumanPlayerFuelScored",
+    "teleFuelAccuracy", "teleFloorIntake", "teleTrench", "teleBump", "teleIntakeOutpost",
+    "teleIntakeNeutralZone", "telePassingNeutralZone", "teleFerryingNeutralZone", "teleDied", "teleClimb", "teleClimbOtherText",
     "defense", "driverSkill", "penaltyPoints", "violationName", "notes", "timestamp"
   ];
 

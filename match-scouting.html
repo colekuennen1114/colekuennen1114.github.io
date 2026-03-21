@@ -109,6 +109,10 @@
             <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="Failed Climb" />Failed Climb</label>
           </div>
+          <label id="autoClimbOtherWrap" class="top-gap conditional-field" hidden>
+            What was the other auto climb?
+            <input id="autoClimbOtherText" type="text" placeholder="Describe the other auto climb result" />
+          </label>
         </fieldset>
 
         <div class="fuel-counter-wrap top-gap">
@@ -217,6 +221,10 @@
             <label class="choice-option"><input type="radio" name="teleClimb" value="L3" />L3</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="Failed Climb" />Failed Climb</label>
           </div>
+          <label id="teleClimbOtherWrap" class="top-gap conditional-field" hidden>
+            What was the other teleop climb?
+            <input id="teleClimbOtherText" type="text" placeholder="Describe the other teleop climb result" />
+          </label>
         </fieldset>
 
         <div class="fuel-counter-wrap top-gap">
@@ -275,7 +283,7 @@
         <div class="button-row">
           <button id="saveBtn" type="button">Save Match Entry</button>
           <button id="downloadBtn" type="button">Download Match CSV</button>
-          <button id="clearBtn" type="button" class="ghost">Clear Local Data</button>
+          <button id="clearBtn" type="button" class="ghost" data-confirm-default="Clear Local Data" data-confirm-text="Confirm Delete Data">Clear Local Data</button>
         </div>
         <p class="tiny">Saved entries: <span id="entryCount">0</span></p>
         <div class="step-nav">

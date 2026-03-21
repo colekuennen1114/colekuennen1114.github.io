@@ -6,9 +6,8 @@ const fieldIds = [
   "alliance",
   "startPos",
   "autoShootDistance",
-  "autoHumanPlayerFuelScored",
-  "autoFuelAccuracy",
   "autoFuelScored",
+  "autoFuelAccuracy",
   "autoFloorIntake",
   "autoTrench",
   "autoBump",
@@ -17,11 +16,12 @@ const fieldIds = [
   "autoPassingNeutralZone",
   "autoFerryingNeutralZone",
   "autoDied",
+  "autoClimbOtherText",
   "teleStartPosition",
   "teleShootDistance",
+  "teleFuelScored",
   "teleHumanPlayerFuelScored",
   "teleFuelAccuracy",
-  "teleFuelScored",
   "teleFloorIntake",
   "teleTrench",
   "teleBump",
@@ -30,6 +30,7 @@ const fieldIds = [
   "telePassingNeutralZone",
   "teleFerryingNeutralZone",
   "teleDied",
+  "teleClimbOtherText",
   "defense",
   "driverSkill",
   "penaltyPoints",
@@ -80,6 +81,11 @@ function clearForm() {
       checked.checked = false;
     }
   }
+
+  getField("autoClimbOtherWrap").hidden = true;
+  getField("autoClimbOtherText").disabled = true;
+  getField("teleClimbOtherWrap").hidden = true;
+  getField("teleClimbOtherText").disabled = true;
   getField("defenseValue").textContent = getField("defense").value;
   getField("driverValue").textContent = getField("driverSkill").value;
   showStep(0);
@@ -137,30 +143,51 @@ function adjustCounter(fieldId, delta) {
 }
 
 
-function setupClearDataModal(triggerButtonId, onConfirm) {
-  const triggerButton = getField(triggerButtonId);
-  const modal = getField("clearDataModal");
-  const confirmButton = getField("confirmClearBtn");
-  const cancelButton = getField("cancelClearBtn");
-
-  const closeModal = () => {
-    modal.hidden = true;
-    document.body.classList.remove("modal-open");
-    triggerButton.focus();
+function setConditionalOtherField(groupName, fieldId, wrapId) {
+  const syncState = () => {
+    const isOther = document.querySelector(`input[name="${groupName}"]:checked`)?.value === "Other";
+    const wrap = getField(wrapId);
+    const field = getField(fieldId);
+    wrap.hidden = !isOther;
+    field.disabled = !isOther;
+    if (!isOther) {
+      field.value = "";
+    }
   };
 
-  triggerButton.addEventListener("click", () => {
-    modal.hidden = false;
-    document.body.classList.add("modal-open");
-    confirmButton.focus();
-  });
+  for (const radio of document.querySelectorAll(`input[name="${groupName}"]`)) {
+    radio.addEventListener("change", syncState);
+  }
 
-  confirmButton.addEventListener("click", () => {
+  syncState();
+}
+
+function setupConfirmButton(buttonId, onConfirm) {
+  const button = getField(buttonId);
+  const defaultText = button.dataset.confirmDefault || button.textContent;
+  const confirmText = button.dataset.confirmText || "Confirm";
+  let armed = false;
+  let timeoutId;
+
+  const reset = () => {
+    armed = false;
+    button.textContent = defaultText;
+    button.classList.remove("confirming");
+    window.clearTimeout(timeoutId);
+  };
+
+  button.addEventListener("click", () => {
+    if (!armed) {
+      armed = true;
+      button.textContent = confirmText;
+      button.classList.add("confirming");
+      timeoutId = window.setTimeout(reset, 4000);
+      return;
+    }
+
+    reset();
     onConfirm();
-    closeModal();
   });
-
-  cancelButton.addEventListener("click", closeModal);
 }
 
 function showStep(stepIndex) {
@@ -182,7 +209,7 @@ getField("driverSkill").addEventListener("input", (e) => {
 
 getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
-setupClearDataModal("clearBtn", clearEntries);
+setupConfirmButton("clearBtn", clearEntries);
 
 for (const fieldId of ["autoHumanPlayerFuelScored", "autoFuelScored", "autoFuelAccuracy", "teleHumanPlayerFuelScored", "teleFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
   getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
@@ -225,3 +252,6 @@ showStep(0);
 window.ScoutingSync.registerServiceWorker();
 window.ScoutingSync.flushPendingUploads().catch(() => {});
 
+
+setConditionalOtherField("autoClimb", "autoClimbOtherText", "autoClimbOtherWrap");
+setConditionalOtherField("teleClimb", "teleClimbOtherText", "teleClimbOtherWrap");

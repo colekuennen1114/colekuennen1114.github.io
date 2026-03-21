@@ -11,8 +11,8 @@ A lightweight scouting web app for collecting FRC 2026 match data from any phone
 ## Features
 
 - Event/team/match metadata fields.
-- 2026 Rebuilt auto parameters: AUTO Shoot Distance, AUTO Human Player Fuel Scored, AUTO Fuel Accuracy Estimate, AUTO Fuel Scored, AUTO Passing from Neutral Zone, AUTO Ferrying from Neutral Zone, AUTO Climb, AUTO Outpost Intake, AUTO Neutral Zone Intake, AUTO Floor Intake, AUTO Trench, AUTO Bump.
-- 2026 Rebuilt teleop parameters: TELE Start Position, TELE Shoot Distance, TELE Human Player Fuel Scored, TELE Fuel Accuracy Estimate, TELE Fuel Scored, TELE Passing from Neutral Zone, TELE Ferrying from Neutral Zone, TELE Outpost Intake, TELE Neutral Zone Intake, TELE Floor Intake, TELE Trench, TELE Bump.
+- 2026 Rebuilt auto parameters: AUTO Shoot Distance, AUTO Fuel Scored, AUTO Passing from Neutral Zone, AUTO Ferrying from Neutral Zone, AUTO Climb, AUTO Outpost Intake, AUTO Neutral Zone Intake, AUTO Floor Intake, AUTO Trench, AUTO Bump.
+- 2026 Rebuilt teleop parameters: TELE Start Position, TELE Shoot Distance, TELE Fuel Scored, TELE Passing from Neutral Zone, TELE Ferrying from Neutral Zone, TELE Outpost Intake, TELE Neutral Zone Intake, TELE Floor Intake, TELE Trench, TELE Bump.
 - Endgame climb levels: L1, L2, L3.
 - Quick Fuel Counter section with +1/+3/+5 buttons, editable Fuel Scored total, and a red -1 adjustment button.
 - Summary section currently shown as placeholder (contribution calculation temporarily disabled).
