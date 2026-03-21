@@ -211,7 +211,7 @@ getField("saveBtn").addEventListener("click", saveEntry);
 getField("downloadBtn").addEventListener("click", downloadCsv);
 setupConfirmButton("clearBtn", clearEntries);
 
-for (const fieldId of ["autoFuelScored", "autoFuelAccuracy", "teleFuelScored", "teleHumanPlayerFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
+for (const fieldId of ["autoHumanPlayerFuelScored", "autoFuelScored", "autoFuelAccuracy", "teleHumanPlayerFuelScored", "teleFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
   getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
 }
 

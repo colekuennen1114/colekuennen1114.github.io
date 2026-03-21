@@ -108,7 +108,6 @@
             <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="Failed Climb" />Failed Climb</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="Other" />Other</label>
           </div>
           <label id="autoClimbOtherWrap" class="top-gap conditional-field" hidden>
             What was the other auto climb?
@@ -118,12 +117,16 @@
 
         <div class="fuel-counter-wrap top-gap">
           <label>
-            Auto Fuel Scored
-            <input id="autoFuelScored" type="number" min="0" value="0" />
+            Auto Human Player Fuel Scored
+            <input id="autoHumanPlayerFuelScored" type="number" min="0" value="0" />
           </label>
           <label>
             Auto Fuel Accuracy Estimate (%)
             <input id="autoFuelAccuracy" type="number" min="0" max="100" value="0" />
+          </label>
+          <label>
+            Auto Fuel Scored
+            <input id="autoFuelScored" type="number" min="0" value="0" />
           </label>
           <div class="fuel-buttons positive-buttons">
             <button id="autoFuelPlus1" type="button" class="counter-btn positive">+1</button>
@@ -212,11 +215,11 @@
         <fieldset class="choice-group top-gap">
           <legend>Endgame Climb</legend>
           <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="teleClimb" value="No Climb" />No climb</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L1" />L1</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L2" />L2</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="L3" />L3</label>
             <label class="choice-option"><input type="radio" name="teleClimb" value="Failed Climb" />Failed Climb</label>
-            <label class="choice-option"><input type="radio" name="teleClimb" value="Other" />Other</label>
           </div>
           <label id="teleClimbOtherWrap" class="top-gap conditional-field" hidden>
             What was the other teleop climb?
@@ -226,16 +229,16 @@
 
         <div class="fuel-counter-wrap top-gap">
           <label>
-            Teleop Fuel Scored
-            <input id="teleFuelScored" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Human Player Fuel Scored
+            Teleop Human Player Fuel Scored
             <input id="teleHumanPlayerFuelScored" type="number" min="0" value="0" />
           </label>
           <label>
             Teleop Fuel Accuracy Estimate (%)
             <input id="teleFuelAccuracy" type="number" min="0" max="100" value="0" />
+          </label>
+          <label>
+            Teleop Fuel Scored
+            <input id="teleFuelScored" type="number" min="0" value="0" />
           </label>
           <div class="fuel-buttons positive-buttons">
             <button id="teleFuelPlus1" type="button" class="counter-btn positive">+1</button>
@@ -293,6 +296,18 @@
       <p>Make sure when you click save entry, "saved entries: x" goes up by one. If the scouting entries do not save, screen record your form and send it to my phone number: (914) 387-6407 (Floyd).</p>
       <p><strong>Press save match entry when you're done scouting a match! When you're done scouting for the day, press DOWNLOAD csv and then send it to my phone number!</strong></p>
     </footer>
+
+
+    <div id="clearDataModal" class="modal-backdrop" hidden>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="clearDataTitle" aria-describedby="clearDataMessage">
+        <h2 id="clearDataTitle">Delete local data?</h2>
+        <p id="clearDataMessage">This will permanently remove all saved scouting entries from this device. Do you want to continue?</p>
+        <div class="button-row modal-actions">
+          <button id="confirmClearBtn" type="button">Yes, Delete Data</button>
+          <button id="cancelClearBtn" type="button" class="ghost">No, Keep Data</button>
+        </div>
+      </section>
+    </div>
 
     <script src="app-sync.js"></script>
     <script src="script.js"></script>
