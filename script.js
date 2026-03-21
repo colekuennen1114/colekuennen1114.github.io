@@ -1,3 +1,5 @@
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpBziND9x_27cqnirxWJaP5d6SjzwPPR9pvpgQQEpQr6ULETwmS9EIQufVDBcyVDQ/exec";
+
 const fieldIds = [
   "eventName",
   "scoutName",
@@ -6,6 +8,7 @@ const fieldIds = [
   "alliance",
   "startPos",
   "autoShootDistance",
+  "autoHumanPlayerFuelScored",
   "autoFuelScored",
   "autoFuelAccuracy",
   "autoFloorIntake",
@@ -38,30 +41,45 @@ const fieldIds = [
 
 const radioGroups = ["autoClimb", "teleClimb"];
 const stepPanels = Array.from(document.querySelectorAll(".form-step"));
+const submitButton = document.getElementById("saveBtn");
+const downloadButton = document.getElementById("downloadBtn");
+const clearButton = document.getElementById("clearBtn");
+const clearDataModal = document.getElementById("clearDataModal");
+const confirmClearBtn = document.getElementById("confirmClearBtn");
+const cancelClearBtn = document.getElementById("cancelClearBtn");
+const statusMessage = document.getElementById("submitStatus");
 let currentStep = 0;
 
 const getField = (id) => document.getElementById(id);
 
 function collectEntry() {
   const entry = {};
+
   for (const id of fieldIds) {
     const field = getField(id);
-    entry[id] = field.type === "checkbox" ? field.checked : field.value;
+    if (!field) continue;
+    entry[field.name || field.id] = field.type === "checkbox" ? field.checked : field.value;
   }
+
   for (const groupName of radioGroups) {
     entry[groupName] = document.querySelector(`input[name="${groupName}"]:checked`)?.value || "";
   }
+
   entry.timestamp = new Date().toISOString();
   return entry;
 }
 
-function updateEntryCount() {
-  getField("entryCount").textContent = String(window.ScoutingSync.getEntries().length);
+function setStatus(message, tone = "") {
+  if (!statusMessage) return;
+  statusMessage.textContent = message;
+  statusMessage.className = `status-message${tone ? ` ${tone}` : ""}`;
 }
 
 function clearForm() {
   for (const id of fieldIds) {
     const field = getField(id);
+    if (!field) continue;
+
     if (field.type === "checkbox") {
       field.checked = false;
     } else if (field.type === "range") {
@@ -85,42 +103,76 @@ function clearForm() {
   showStep(0);
 }
 
-async function saveEntry() {
-  const entry = collectEntry();
-  window.ScoutingSync.queueEntry(entry);
-  updateEntryCount();
-  clearForm();
-
-  try {
-    await window.ScoutingSync.flushPendingUploads();
-  } catch {
-    // Keep offline entries queued for later upload.
-  }
-
-  sessionStorage.setItem("scouting_toast", "Your entry has been saved.");
-  window.location.href = "index.html";
+function escapeCsvValue(value) {
+  const text = String(value ?? "");
+  return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
 function downloadCsv() {
-  const entries = window.ScoutingSync.getEntries();
-  if (entries.length === 0) {
-    alert("No entries saved yet.");
-    return;
-  }
+  const entry = collectEntry();
+  const headers = Object.keys(entry);
+  const csv = [
+    headers.join(","),
+    headers.map((header) => escapeCsvValue(entry[header])).join(","),
+  ].join("\n");
 
-  const blob = new Blob([window.ScoutingSync.toCsv(entries)], { type: "text/csv;charset=utf-8;" });
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "frc2026_scouting_data.csv";
+  a.download = "frc2026_match_entry.csv";
   a.click();
   URL.revokeObjectURL(url);
 }
 
-function clearEntries() {
-  localStorage.removeItem(window.ScoutingSync.entriesKey);
-  localStorage.removeItem("frc2026_pending_uploads");
-  updateEntryCount();
+function setSubmittingState(isSubmitting) {
+  submitButton.disabled = isSubmitting;
+  downloadButton.disabled = isSubmitting;
+  clearButton.disabled = isSubmitting;
+  submitButton.textContent = isSubmitting ? "Submitting…" : "Submit Match Entry";
+}
+
+async function submitEntry() {
+  if (!APPS_SCRIPT_URL) {
+    setStatus("Add the Google Apps Script Web App URL before submitting.", "error");
+    return;
+  }
+
+  setSubmittingState(true);
+  setStatus("Submitting…");
+
+  try {
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(collectEntry()),
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      clearForm();
+      setStatus("Submitted successfully!", "success");
+      return;
+    }
+
+    const errorMessage = result.message || "Submission failed.";
+    setStatus(errorMessage, "error");
+  } catch (error) {
+    setStatus(error instanceof Error ? error.message : "Unable to submit the form.", "error");
+  } finally {
+    setSubmittingState(false);
+  }
+}
+
+function openClearModal() {
+  clearDataModal.hidden = false;
+  confirmClearBtn.focus();
+}
+
+function closeClearModal() {
+  clearDataModal.hidden = true;
+  clearButton.focus();
 }
 
 function setCounterValue(fieldId, value) {
@@ -134,36 +186,6 @@ function getCounterValue(fieldId) {
 
 function adjustCounter(fieldId, delta) {
   setCounterValue(fieldId, getCounterValue(fieldId) + delta);
-}
-
-
-
-function setupConfirmButton(buttonId, onConfirm) {
-  const button = getField(buttonId);
-  const defaultText = button.dataset.confirmDefault || button.textContent;
-  const confirmText = button.dataset.confirmText || "Confirm";
-  let armed = false;
-  let timeoutId;
-
-  const reset = () => {
-    armed = false;
-    button.textContent = defaultText;
-    button.classList.remove("confirming");
-    window.clearTimeout(timeoutId);
-  };
-
-  button.addEventListener("click", () => {
-    if (!armed) {
-      armed = true;
-      button.textContent = confirmText;
-      button.classList.add("confirming");
-      timeoutId = window.setTimeout(reset, 4000);
-      return;
-    }
-
-    reset();
-    onConfirm();
-  });
 }
 
 function showStep(stepIndex) {
@@ -183,9 +205,25 @@ getField("driverSkill").addEventListener("input", (e) => {
   getField("driverValue").textContent = e.target.value;
 });
 
-getField("saveBtn").addEventListener("click", saveEntry);
-getField("downloadBtn").addEventListener("click", downloadCsv);
-setupConfirmButton("clearBtn", clearEntries);
+submitButton.addEventListener("click", submitEntry);
+downloadButton.addEventListener("click", downloadCsv);
+clearButton.addEventListener("click", openClearModal);
+confirmClearBtn.addEventListener("click", () => {
+  clearForm();
+  setStatus("");
+  closeClearModal();
+});
+cancelClearBtn.addEventListener("click", closeClearModal);
+clearDataModal.addEventListener("click", (event) => {
+  if (event.target === clearDataModal) {
+    closeClearModal();
+  }
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !clearDataModal.hidden) {
+    closeClearModal();
+  }
+});
 
 for (const fieldId of ["autoHumanPlayerFuelScored", "autoFuelScored", "autoFuelAccuracy", "teleHumanPlayerFuelScored", "teleFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
   getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
@@ -223,7 +261,5 @@ for (const button of document.querySelectorAll(".nav-step-btn")) {
   });
 }
 
-updateEntryCount();
 showStep(0);
 window.ScoutingSync.registerServiceWorker();
-window.ScoutingSync.flushPendingUploads().catch(() => {});
