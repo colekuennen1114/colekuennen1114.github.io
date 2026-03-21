@@ -404,3 +404,16 @@ button:hover {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   margin-bottom: 0;
 }
+
+
+.rich-toggle {
+  align-items: flex-start;
+}
+
+.conditional-field[hidden] {
+  display: none;
+}
+
+button.confirming {
+  background: linear-gradient(90deg, #a11d2b, #c42d3d);
+}
