@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyKBs9pESN6pmke2f-3QiKSETFYx_U1RnM-qROYoAn8v1m_VHzVE0FThj_lo9mPtCUZ/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlwmmIdNatoAMq5Xm0N6HLsmqzqOG32yjFrQC_TvJgmnh5dgzyDvDWbLUQrEv7PwXR/exec";
 
 const fieldIds = [
   "eventName",
