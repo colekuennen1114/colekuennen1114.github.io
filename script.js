@@ -60,6 +60,10 @@ function collectEntry() {
   for (const id of fieldIds) {
     const field = getField(id);
     if (!field) continue;
+    if ((id === "defense" || id === "driverSkill") && field.dataset.touched !== "true") {
+      entry[field.name || field.id] = "";
+      continue;
+    }
     entry[field.name || field.id] = field.type === "checkbox" ? field.checked : field.value;
   }
 
