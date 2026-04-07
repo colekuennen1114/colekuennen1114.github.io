@@ -82,7 +82,6 @@
           <legend>Auto Climb</legend>
           <div class="option-grid compact-options">
             <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" checked />No climb</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" />No climb</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L1" />L1</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
@@ -104,14 +103,6 @@
         </div>
 
         <div class="grid two-col stacked-toggles top-gap">
-          <label class="toggle rich-toggle">
-            <input id="autoPassingNeutralZone" type="checkbox" />
-            <span>Auto Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
-          </label>
-          <label class="toggle">
-            <input id="autoFloorIntake" type="checkbox" />
-            Floor intake?
-          </label>
           <label class="toggle">
             <input id="autoTrench" type="checkbox" />
             Trench?
@@ -177,27 +168,6 @@
             Driver Skill (0-5)
             <input id="driverSkill" type="range" min="0" max="5" value="0" />
             <span id="driverValue">Not set</span>
-            <select id="defense">
-              <option value="" selected>------</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </label>
-          <label>
-            Driver Skill (0-5)
-            <select id="driverSkill">
-              <option value="" selected>------</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
           </label>
         </div>
 
@@ -226,14 +196,6 @@
         </div>
 
         <div class="grid two-col stacked-toggles top-gap">
-          <label class="toggle rich-toggle">
-            <input id="telePassingNeutralZone" type="checkbox" />
-            <span>Teleop Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
-          </label>
-          <label class="toggle">
-            <input id="teleFloorIntake" type="checkbox" />
-            Floor intake?
-          </label>
           <label class="toggle">
             <input id="teleTrench" type="checkbox" />
             Trench?
@@ -278,7 +240,6 @@
         </div>
         <p class="tiny top-gap">If you don&apos;t know/can&apos;t remember, don&apos;t answer.</p>
         <div class="grid notes-single top-gap">
-        <div class="grid two-col top-gap">
           <label>
             Balls per second the bot could shoot (estimate)
             <input id="estimatedBallsPerSecond" type="text" placeholder="e.g. 2.1" />
@@ -344,7 +305,7 @@
       </section>
     </div>
 
-    <script src="app-sync.js"></script>
-    <script src="script.js"></script>
+    <script src="app-sync.js?v=3"></script>
+    <script src="script.js?v=3"></script>
   </body>
 </html>
