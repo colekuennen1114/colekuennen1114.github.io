@@ -1,4 +1,4 @@
-const CACHE_NAME = "oec-rebuilt-scouting-v1";
+const CACHE_NAME = "oec-rebuilt-scouting-v3";
 const ASSETS = [
   "./",
   "./index.html",

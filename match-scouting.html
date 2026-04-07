@@ -8,7 +8,7 @@
   </head>
   <body>
     <header class="site-header">
-      <p><a class="back-link" href="./">← Back to Home</a></p>
+      <p><a id="matchBackHomeLink" class="back-link" href="./">← Back to Home</a></p>
       <h1>Qualification Match Data</h1>
     </header>
 
@@ -49,77 +49,13 @@
           </label>
         </div>
         <div class="step-nav">
-          <button type="button" class="ghost nav-step-btn" data-nav="prev" disabled>Back</button>
           <button type="button" class="nav-step-btn" data-nav="next">Next</button>
         </div>
       </section>
 
       <section class="panel form-step" data-step="1">
         <h2>Autonomous</h2>
-        <div class="grid two-col stacked-toggles">
-          <label>
-            AUTO Shoot Distance
-            <select id="autoShootDistance">
-              <option value="None">None</option>
-              <option value="Close">Close</option>
-              <option value="Mid">Mid</option>
-              <option value="Far">Far</option>
-            </select>
-          </label>
-          <label class="toggle">
-            <input id="autoFloorIntake" type="checkbox" />
-            Floor intake?
-          </label>
-          <label class="toggle">
-            <input id="autoTrench" type="checkbox" />
-            Trench?
-          </label>
-          <label class="toggle">
-            <input id="autoBump" type="checkbox" />
-            Bump?
-          </label>
-          <label class="toggle">
-            <input id="autoIntakeOutpost" type="checkbox" />
-            Intake from outpost?
-          </label>
-          <label class="toggle">
-            <input id="autoIntakeNeutralZone" type="checkbox" />
-            Intake from Neutral Zone?
-          </label>
-          <label class="toggle rich-toggle">
-            <input id="autoPassingNeutralZone" type="checkbox" />
-            <span>Auto Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
-          </label>
-          <label class="toggle rich-toggle">
-            <input id="autoFerryingNeutralZone" type="checkbox" />
-            <span>Auto Ferrying (<u>pushing/carrying</u> fuel from neutral to alliance zone)</span>
-          </label>
-          <label class="toggle">
-            <input id="autoDied" type="checkbox" />
-            Robot Died / Disabled / Didn&apos;t Move
-          </label>
-        </div>
-
-        <fieldset class="choice-group top-gap">
-          <legend>Auto Climb</legend>
-          <div class="option-grid compact-options">
-            <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" />No climb</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="L1" />L1</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
-            <label class="choice-option"><input type="radio" name="autoClimb" value="Failed Climb" />Failed Climb</label>
-          </div>
-        </fieldset>
-
-        <div class="fuel-counter-wrap top-gap">
-          <label>
-            Auto Human Player Fuel Scored
-            <input id="autoHumanPlayerFuelScored" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Auto Fuel Accuracy Estimate (%)
-            <input id="autoFuelAccuracy" type="number" min="0" max="100" value="0" />
-          </label>
+        <div class="fuel-counter-wrap">
           <label>
             Auto Fuel Scored
             <input id="autoFuelScored" type="number" min="0" value="0" />
@@ -136,6 +72,57 @@
             <button id="autoFuelMinus5" type="button" class="counter-btn danger">-5</button>
             <button id="autoFuelMinus10" type="button" class="counter-btn danger">-10</button>
           </div>
+          <label>
+            Auto Fuel Accuracy Estimate (%)
+            <input id="autoFuelAccuracy" type="number" min="0" max="100" placeholder="------" />
+          </label>
+        </div>
+
+        <fieldset class="choice-group top-gap">
+          <legend>Auto Climb</legend>
+          <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" checked />No climb</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="L1" />L1</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="L3" />L3</label>
+            <label class="choice-option"><input type="radio" name="autoClimb" value="Failed Climb" />Failed Climb</label>
+          </div>
+        </fieldset>
+
+        <div class="grid two-col top-gap">
+          <label>
+            AUTO Shoot Distance
+            <select id="autoShootDistance">
+              <option value="" selected>------</option>
+              <option value="None">None</option>
+              <option value="Close">Close</option>
+              <option value="Mid">Mid</option>
+              <option value="Far">Far</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid two-col stacked-toggles top-gap">
+          <label class="toggle">
+            <input id="autoTrench" type="checkbox" />
+            Trench?
+          </label>
+          <label class="toggle">
+            <input id="autoFloorIntake" type="checkbox" />
+            Ground intake?
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="autoPassingNeutralZone" type="checkbox" />
+            <span>Auto Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="autoFerryingNeutralZone" type="checkbox" />
+            <span>Auto Ferrying (<u>pushing/carrying</u> fuel from neutral to alliance zone)</span>
+          </label>
+          <label class="toggle">
+            <input id="autoDied" type="checkbox" />
+            Robot Died / Disabled / Didn&apos;t Move
+          </label>
         </div>
 
         <div class="step-nav">
@@ -146,88 +133,7 @@
 
       <section class="panel form-step" data-step="2">
         <h2>Teleoperated</h2>
-        <div class="grid two-col stacked-toggles">
-          <label>
-            TELE Start Position
-            <select id="teleStartPosition">
-              <option value="Left">Left</option>
-              <option value="Center">Center</option>
-              <option value="Right">Right</option>
-            </select>
-          </label>
-          <label>
-            TELE Shoot Distance
-            <select id="teleShootDistance">
-              <option value="None">None</option>
-              <option value="Close">Close</option>
-              <option value="Mid">Mid</option>
-              <option value="Far">Far</option>
-            </select>
-          </label>
-          <label class="toggle">
-            <input id="teleFloorIntake" type="checkbox" />
-            Floor intake?
-          </label>
-          <label class="toggle">
-            <input id="teleTrench" type="checkbox" />
-            Trench?
-          </label>
-          <label class="toggle">
-            <input id="teleBump" type="checkbox" />
-            Bump?
-          </label>
-          <label class="toggle">
-            <input id="teleIntakeOutpost" type="checkbox" />
-            Intake from outpost?
-          </label>
-          <label class="toggle">
-            <input id="teleIntakeNeutralZone" type="checkbox" />
-            Intake from Neutral Zone?
-          </label>
-          <label class="toggle rich-toggle">
-            <input id="telePassingNeutralZone" type="checkbox" />
-            <span>Teleop Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
-          </label>
-          <label class="toggle rich-toggle">
-            <input id="teleFerryingNeutralZone" type="checkbox" />
-            <span>Teleop Ferrying (<u>pushing/carrying</u> fuel from neutral to alliance zone)</span>
-          </label>
-          <label class="toggle">
-            <input id="teleDied" type="checkbox" />
-            Robot Died / Disabled / Didn&apos;t Move
-          </label>
-          <label>
-            Defense Impact (0-5)
-            <input id="defense" type="range" min="0" max="5" value="0" />
-            <span id="defenseValue">0</span>
-          </label>
-          <label>
-            Driver Skill (0-5)
-            <input id="driverSkill" type="range" min="0" max="5" value="3" />
-            <span id="driverValue">3</span>
-          </label>
-        </div>
-
-        <fieldset class="choice-group top-gap">
-          <legend>Endgame Climb</legend>
-          <div class="option-grid compact-options">
-            <label class="choice-option"><input type="radio" name="teleClimb" value="No Climb" />No climb</label>
-            <label class="choice-option"><input type="radio" name="teleClimb" value="L1" />L1</label>
-            <label class="choice-option"><input type="radio" name="teleClimb" value="L2" />L2</label>
-            <label class="choice-option"><input type="radio" name="teleClimb" value="L3" />L3</label>
-            <label class="choice-option"><input type="radio" name="teleClimb" value="Failed Climb" />Failed Climb</label>
-          </div>
-        </fieldset>
-
-        <div class="fuel-counter-wrap top-gap">
-          <label>
-            Teleop Human Player Fuel Scored
-            <input id="teleHumanPlayerFuelScored" type="number" min="0" value="0" />
-          </label>
-          <label>
-            Teleop Fuel Accuracy Estimate (%)
-            <input id="teleFuelAccuracy" type="number" min="0" max="100" value="0" />
-          </label>
+        <div class="fuel-counter-wrap">
           <label>
             Teleop Fuel Scored
             <input id="teleFuelScored" type="number" min="0" value="0" />
@@ -244,6 +150,70 @@
             <button id="teleFuelMinus5" type="button" class="counter-btn danger">-5</button>
             <button id="teleFuelMinus10" type="button" class="counter-btn danger">-10</button>
           </div>
+          <label>
+            Teleop Fuel Accuracy Estimate (%)
+            <input id="teleFuelAccuracy" type="number" min="0" max="100" placeholder="------" />
+          </label>
+        </div>
+
+        <div class="grid two-col top-gap">
+          <label>
+            Defense Impact (0-5)
+            <input id="defense" type="range" min="0" max="5" value="0" />
+            <span id="defenseValue">Not set</span>
+          </label>
+          <label>
+            Driver Skill (0-5)
+            <input id="driverSkill" type="range" min="0" max="5" value="0" />
+            <span id="driverValue">Not set</span>
+          </label>
+        </div>
+
+        <fieldset class="choice-group top-gap">
+          <legend>Endgame Climb</legend>
+          <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="teleClimb" value="No Climb" checked />No climb</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="L1" />L1</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="L2" />L2</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="L3" />L3</label>
+            <label class="choice-option"><input type="radio" name="teleClimb" value="Failed Climb" />Failed Climb</label>
+          </div>
+        </fieldset>
+
+        <div class="grid two-col top-gap">
+          <label>
+            TELE Shoot Distance
+            <select id="teleShootDistance">
+              <option value="" selected>------</option>
+              <option value="None">None</option>
+              <option value="Close">Close</option>
+              <option value="Mid">Mid</option>
+              <option value="Far">Far</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid two-col stacked-toggles top-gap">
+          <label class="toggle">
+            <input id="teleTrench" type="checkbox" />
+            Trench?
+          </label>
+          <label class="toggle">
+            <input id="teleFloorIntake" type="checkbox" />
+            Ground intake?
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="telePassingNeutralZone" type="checkbox" />
+            <span>Teleop Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="teleFerryingNeutralZone" type="checkbox" />
+            <span>Teleop Ferrying (<u>pushing/carrying</u> fuel from neutral to alliance zone)</span>
+          </label>
+          <label class="toggle">
+            <input id="teleDied" type="checkbox" />
+            Robot Died / Disabled / Didn&apos;t Move
+          </label>
         </div>
 
         <div class="step-nav">
@@ -262,6 +232,33 @@
           <label>
             Which violation?
             <input id="violationName" type="text" placeholder="If known, name the violation" />
+          </label>
+        </div>
+        <p class="tiny top-gap">If you don&apos;t know/can&apos;t remember, don&apos;t answer.</p>
+        <div class="grid notes-single top-gap">
+          <label>
+            Balls per second the bot could shoot (estimate)
+            <input id="estimatedBallsPerSecond" type="text" placeholder="e.g. 2.1" />
+          </label>
+          <label>
+            Hopper ball capacity (estimate)
+            <input id="estimatedHopperCapacity" type="text" placeholder="e.g. 5" />
+          </label>
+          <label>
+            What was their strategy during teleop?
+            <textarea id="teleopStrategy" rows="3" placeholder="Cycle plan, positioning, partner coordination, etc."></textarea>
+          </label>
+          <label>
+            Was the driver adaptable to unexpected situations (could they manage something breaking, excessive defense, etc)?
+            <textarea id="driverAdaptability" rows="3" placeholder="How they adjusted and recovered during the match."></textarea>
+          </label>
+          <label class="full-width">
+            <span class="single-line-question">Were there any <u>specific</u> problems with the bot?</span>
+            <textarea id="specificBotProblems" rows="3" placeholder="List any clear recurring or severe issues."></textarea>
+          </label>
+          <label class="toggle">
+            <input id="kitbot" type="checkbox" />
+            Kitbot?
           </label>
         </div>
         <label class="top-gap">
@@ -304,7 +301,7 @@
       </section>
     </div>
 
-    <script src="app-sync.js"></script>
-    <script src="script.js"></script>
+    <script src="app-sync.js?v=3"></script>
+    <script src="script.js?v=3"></script>
   </body>
 </html>
