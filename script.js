@@ -183,17 +183,32 @@ async function submitEntry() {
       body: JSON.stringify(collectEntry()),
     });
 
-    const result = await response.json();
+    const responseText = await response.text();
+    let result = {};
+    try {
+      result = responseText ? JSON.parse(responseText) : {};
+    } catch {
+      result = { status: "error", message: responseText || "Submission failed." };
+    }
 
-    if (result.status === "success") {
+    if (response.ok && result.status === "success") {
       clearForm();
       sessionStorage.setItem("scouting_toast", "Match submission recorded.");
       window.location.href = "./";
       return;
     }
 
-    const errorMessage = result.message || "Submission failed.";
-    setStatus(errorMessage, "error");
+    const rawMessage = result.message || result.error || "Submission failed.";
+    if (String(rawMessage).includes("OTHER_FIELD_TO_COL is not defined")) {
+      setStatus(
+        "Apps Script deployment error: OTHER_FIELD_TO_COL is undefined.",
+        "error",
+        "This is in the Google Apps Script backend, not this page. Re-deploy after defining OTHER_FIELD_TO_COL."
+      );
+      return;
+    }
+
+    setStatus(rawMessage, "error");
   } catch (error) {
     setStatus(error instanceof Error ? error.message : "Unable to submit the form.", "error");
   } finally {
