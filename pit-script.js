@@ -1,4 +1,4 @@
-const pitEntriesKey = "frc2026_pit_entries";
+const PIT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYYXQp9w0miMoWi4oCunxJVo7LxOZdb6zDKsMvbuwnu_WQ6kCk4ihImGfuRigWKU4q/exec";
 
 const pitTextFieldIds = [
   "pitEventName",
@@ -30,45 +30,6 @@ const pitTextFieldIds = [
   "pitOtherNotes",
 ];
 
-const pitColumns = [
-  "pitEventName",
-  "pitScoutName",
-  "pitTeamNumber",
-  "pitContact",
-  "pitDimensions",
-  "pitWeight",
-  "pitDriveTrain",
-  "pitDriveTrainOther",
-  "pitShooterType",
-  "pitShooterTypeOther",
-  "pitCapacity",
-  "pitBallsPerSecond",
-  "pitAprilTagVision",
-  "pitVisionHardware",
-  "pitVisionHardwareOther",
-  "pitLimelightVersion",
-  "pitAutoAimVision",
-  "pitShootOnMove",
-  "pitClimbAbility",
-  "pitClimbAbilityOther",
-  "pitClimbLevel",
-  "pitAutoScoring",
-  "pitAutoRoutes",
-  "pitRoles",
-  "pitFerrying",
-  "pitFerryingOther",
-  "pitReliability",
-  "pitRepairReadiness",
-  "pitDriverExperience",
-  "pitDriverPracticeHours",
-  "pitRobotNotes",
-  "pitCooperative",
-  "pitCooperativeOther",
-  "pitAnsweredQuestions",
-  "pitOtherNotes",
-  "timestamp",
-];
-
 const pitRadioFieldNames = [
   "pitDriveTrain",
   "pitShooterType",
@@ -85,16 +46,12 @@ const pitRadioFieldNames = [
 const getField = (id) => document.getElementById(id);
 const getRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value || "";
 
-function getPitEntries() {
-  return JSON.parse(localStorage.getItem(pitEntriesKey) || "[]");
-}
-
-function savePitEntries(entries) {
-  localStorage.setItem(pitEntriesKey, JSON.stringify(entries));
+function getPitSubmitCount() {
+  return Number(sessionStorage.getItem("pit_submit_count") || "0");
 }
 
 function updatePitCount() {
-  getField("pitEntryCount").textContent = String(getPitEntries().length);
+  getField("pitEntryCount").textContent = String(getPitSubmitCount());
 }
 
 function collectPitEntry() {
@@ -132,13 +89,51 @@ function clearPitForm() {
   updateLimelightVersionVisibility();
 }
 
-function savePitEntry() {
-  const entries = getPitEntries();
-  entries.push(collectPitEntry());
-  savePitEntries(entries);
-  updatePitCount();
-  clearPitForm();
-  window.ScoutingSync.showToast("Pit entry saved.");
+function setSubmittingState(isSubmitting) {
+  getField("savePitBtn").disabled = isSubmitting;
+  getField("clearPitBtn").disabled = isSubmitting;
+  getField("savePitBtn").textContent = isSubmitting ? "Submitting…" : "Submit Pit Entry";
+}
+
+async function submitPitEntry() {
+  if (!PIT_APPS_SCRIPT_URL) {
+    alert("Missing pit scouting Apps Script URL.");
+    return;
+  }
+
+  setSubmittingState(true);
+
+  try {
+    const response = await fetch(PIT_APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(collectPitEntry()),
+    });
+
+    const responseText = await response.text();
+    let result = {};
+
+    try {
+      result = responseText ? JSON.parse(responseText) : {};
+    } catch {
+      result = { status: "error", message: responseText || "Submission failed." };
+    }
+
+    if (response.ok && result.status === "success") {
+      const submitCount = getPitSubmitCount() + 1;
+      sessionStorage.setItem("pit_submit_count", String(submitCount));
+      updatePitCount();
+      clearPitForm();
+      window.ScoutingSync.showToast("Pit submission recorded.");
+      return;
+    }
+
+    alert(result.message || result.error || "Unable to submit pit entry.");
+  } catch (error) {
+    alert(error instanceof Error ? error.message : "Unable to submit pit entry.");
+  } finally {
+    setSubmittingState(false);
+  }
 }
 
 function updateLimelightVersionVisibility() {
@@ -151,45 +146,12 @@ function updateLimelightVersionVisibility() {
   }
 }
 
-function clearPitEntries() {
-  localStorage.removeItem(pitEntriesKey);
-  updatePitCount();
-  window.ScoutingSync.showToast("Pit entries cleared.");
-}
-
-function downloadPitCsv() {
-  const entries = getPitEntries();
-  if (entries.length === 0) {
-    alert("No pit entries saved yet.");
-    return;
-  }
-
-  const escapeCsv = (value) => {
-    const text = String(value ?? "");
-    return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-  };
-
-  const csvText = [
-    pitColumns.join(","),
-    ...entries.map((entry) => pitColumns.map((column) => escapeCsv(entry[column])).join(",")),
-  ].join("\n");
-
-  const blob = new Blob([csvText], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "frc2026_pit_scouting_data.csv";
-  link.click();
-  URL.revokeObjectURL(url);
-}
-
 document.querySelectorAll('input[name="pitVisionHardware"]').forEach((input) => {
   input.addEventListener("change", updateLimelightVersionVisibility);
 });
 
-getField("savePitBtn").addEventListener("click", savePitEntry);
-getField("downloadPitBtn").addEventListener("click", downloadPitCsv);
-getField("clearPitBtn").addEventListener("click", clearPitEntries);
+getField("savePitBtn").addEventListener("click", submitPitEntry);
+getField("clearPitBtn").addEventListener("click", clearPitForm);
 
 const pitBackHomeLink = getField("pitBackHomeLink");
 if (pitBackHomeLink) {

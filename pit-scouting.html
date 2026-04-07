@@ -246,21 +246,20 @@
       <section class="panel actions">
         <h2>Pit Entry Actions</h2>
         <div class="button-row">
-          <button id="savePitBtn" type="button">Save Pit Entry</button>
-          <button id="downloadPitBtn" type="button">Download Pit CSV</button>
-          <button id="clearPitBtn" type="button" class="ghost">Clear Pit Data</button>
+          <button id="savePitBtn" type="button">Submit Pit Entry</button>
+          <button id="clearPitBtn" type="button" class="ghost">Clear Form</button>
         </div>
-        <p class="tiny">Saved pit entries: <span id="pitEntryCount">0</span></p>
+        <p class="tiny">Pit submissions this session: <span id="pitEntryCount">0</span></p>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>Make sure when you click save entry, "saved entries: x" goes up by one. If the scouting entries do not save, download the CSV and text it to my phone number: (914) 387-6407 (Floyd).</p>
+      <p>Pit scouting entries submit directly to the spreadsheet when you click Submit Pit Entry. If a submission fails, keep the page open and retry after checking your internet connection.</p>
     </footer>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="app-sync.js?v=3"></script>
-    <script src="pit-script.js?v=3"></script>
+    <script src="pit-script.js?v=4"></script>
   </body>
 </html>
