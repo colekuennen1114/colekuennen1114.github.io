@@ -12,7 +12,6 @@ const fieldIds = [
   "autoFuelAccuracy",
   "autoFloorIntake",
   "autoTrench",
-  "autoIntakeOutpost",
   "autoPassingNeutralZone",
   "autoFerryingNeutralZone",
   "autoDied",
@@ -21,7 +20,6 @@ const fieldIds = [
   "teleFuelAccuracy",
   "teleFloorIntake",
   "teleTrench",
-  "teleIntakeOutpost",
   "telePassingNeutralZone",
   "teleFerryingNeutralZone",
   "teleDied",
@@ -130,9 +128,6 @@ function clearForm() {
 
   getField("defenseValue").textContent = "Not set";
   getField("driverValue").textContent = "Not set";
-  if (defaultTeleClimb) {
-    defaultTeleClimb.checked = true;
-  }
 
   for (const stickyFieldId of stickyFieldIds) {
     const field = getField(stickyFieldId);
@@ -221,8 +216,6 @@ function setCounterValue(fieldId, value) {
   if (!field) return;
   const min = field.min === "" ? Number.NaN : Number(field.min);
   const max = field.max === "" ? Number.NaN : Number(field.max);
-  const min = Number(field.min);
-  const max = Number(field.max);
   const safeMin = Number.isFinite(min) ? min : 0;
   const safeMax = Number.isFinite(max) ? max : Number.POSITIVE_INFINITY;
   const clamped = Math.min(safeMax, Math.max(safeMin, value));
