@@ -191,6 +191,16 @@ getField("savePitBtn").addEventListener("click", savePitEntry);
 getField("downloadPitBtn").addEventListener("click", downloadPitCsv);
 getField("clearPitBtn").addEventListener("click", clearPitEntries);
 
+const pitBackHomeLink = getField("pitBackHomeLink");
+if (pitBackHomeLink) {
+  pitBackHomeLink.addEventListener("click", (event) => {
+    const confirmed = window.confirm("Leave pit scouting and go back home? Any unsaved changes will be lost.");
+    if (!confirmed) {
+      event.preventDefault();
+    }
+  });
+}
+
 window.ScoutingSync.registerServiceWorker();
 updateLimelightVersionVisibility();
 updatePitCount();

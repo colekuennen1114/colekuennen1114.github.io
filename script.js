@@ -8,27 +8,20 @@ const fieldIds = [
   "alliance",
   "startPos",
   "autoShootDistance",
-  "autoHumanPlayerFuelScored",
   "autoFuelScored",
   "autoFuelAccuracy",
   "autoFloorIntake",
   "autoTrench",
-  "autoBump",
   "autoIntakeOutpost",
-  "autoIntakeNeutralZone",
   "autoPassingNeutralZone",
   "autoFerryingNeutralZone",
   "autoDied",
-  "teleStartPosition",
   "teleShootDistance",
   "teleFuelScored",
-  "teleHumanPlayerFuelScored",
   "teleFuelAccuracy",
   "teleFloorIntake",
   "teleTrench",
-  "teleBump",
   "teleIntakeOutpost",
-  "teleIntakeNeutralZone",
   "telePassingNeutralZone",
   "teleFerryingNeutralZone",
   "teleDied",
@@ -36,6 +29,11 @@ const fieldIds = [
   "driverSkill",
   "penaltyPoints",
   "violationName",
+  "estimatedBallsPerSecond",
+  "estimatedHopperCapacity",
+  "teleopStrategy",
+  "driverAdaptability",
+  "specificBotProblems",
   "notes",
 ];
 
@@ -51,6 +49,8 @@ const statusMessage = document.getElementById("submitStatus");
 const statusPrimary = document.getElementById("submitStatusPrimary");
 const statusHint = document.getElementById("submitStatusHint");
 let currentStep = 0;
+const stickyFieldIds = ["eventName", "scoutName", "alliance"];
+const stickyValuesKey = "frc2026_match_sticky_values";
 
 const getField = (id) => document.getElementById(id);
 
@@ -86,14 +86,18 @@ function setStatus(message, tone = "", hint = "") {
 }
 
 function clearForm() {
+  const stickyValues = {};
+  for (const stickyFieldId of stickyFieldIds) {
+    const field = getField(stickyFieldId);
+    if (field) stickyValues[stickyFieldId] = field.value;
+  }
+
   for (const id of fieldIds) {
     const field = getField(id);
     if (!field) continue;
 
     if (field.type === "checkbox") {
       field.checked = false;
-    } else if (field.type === "range") {
-      field.value = field.id === "defense" ? "0" : "3";
     } else if (field.tagName === "SELECT") {
       field.selectedIndex = 0;
     } else {
@@ -107,9 +111,17 @@ function clearForm() {
       checked.checked = false;
     }
   }
+  const defaultTeleClimb = document.querySelector('input[name="teleClimb"][value="No Climb"]');
+  if (defaultTeleClimb) {
+    defaultTeleClimb.checked = true;
+  }
 
-  getField("defenseValue").textContent = getField("defense").value;
-  getField("driverValue").textContent = getField("driverSkill").value;
+  for (const stickyFieldId of stickyFieldIds) {
+    const field = getField(stickyFieldId);
+    if (field && stickyValues[stickyFieldId] !== undefined) {
+      field.value = stickyValues[stickyFieldId];
+    }
+  }
   showStep(0);
 }
 
@@ -187,7 +199,14 @@ function closeClearModal() {
 }
 
 function setCounterValue(fieldId, value) {
-  getField(fieldId).value = String(Math.max(0, value));
+  const field = getField(fieldId);
+  if (!field) return;
+  const min = Number(field.min);
+  const max = Number(field.max);
+  const safeMin = Number.isFinite(min) ? min : 0;
+  const safeMax = Number.isFinite(max) ? max : Number.POSITIVE_INFINITY;
+  const clamped = Math.min(safeMax, Math.max(safeMin, value));
+  field.value = String(clamped);
 }
 
 function getCounterValue(fieldId) {
@@ -207,14 +226,6 @@ function showStep(stepIndex) {
   }
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
-getField("defense").addEventListener("input", (e) => {
-  getField("defenseValue").textContent = e.target.value;
-});
-
-getField("driverSkill").addEventListener("input", (e) => {
-  getField("driverValue").textContent = e.target.value;
-});
 
 submitButton.addEventListener("click", submitEntry);
 downloadButton.addEventListener("click", downloadCsv);
@@ -236,8 +247,36 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-for (const fieldId of ["autoHumanPlayerFuelScored", "autoFuelScored", "autoFuelAccuracy", "teleHumanPlayerFuelScored", "teleFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
-  getField(fieldId).addEventListener("input", () => setCounterValue(fieldId, getCounterValue(fieldId)));
+for (const fieldId of ["autoFuelScored", "autoFuelAccuracy", "teleFuelScored", "teleFuelAccuracy", "penaltyPoints"]) {
+  getField(fieldId).addEventListener("input", () => {
+    const field = getField(fieldId);
+    if (field.value === "") return;
+    setCounterValue(fieldId, getCounterValue(fieldId));
+  });
+}
+
+function saveStickyValues() {
+  const values = {};
+  for (const stickyFieldId of stickyFieldIds) {
+    const field = getField(stickyFieldId);
+    if (field) values[stickyFieldId] = field.value;
+  }
+  localStorage.setItem(stickyValuesKey, JSON.stringify(values));
+}
+
+function loadStickyValues() {
+  const saved = JSON.parse(localStorage.getItem(stickyValuesKey) || "{}");
+  for (const stickyFieldId of stickyFieldIds) {
+    const field = getField(stickyFieldId);
+    if (field && typeof saved[stickyFieldId] === "string") {
+      field.value = saved[stickyFieldId];
+    }
+  }
+}
+
+for (const stickyFieldId of stickyFieldIds) {
+  getField(stickyFieldId).addEventListener("input", saveStickyValues);
+  getField(stickyFieldId).addEventListener("change", saveStickyValues);
 }
 
 const counterBindings = [
@@ -272,5 +311,16 @@ for (const button of document.querySelectorAll(".nav-step-btn")) {
   });
 }
 
+const matchBackHomeLink = getField("matchBackHomeLink");
+if (matchBackHomeLink) {
+  matchBackHomeLink.addEventListener("click", (event) => {
+    const confirmed = window.confirm("Leave match scouting and go back home? Any unsaved changes will be lost.");
+    if (!confirmed) {
+      event.preventDefault();
+    }
+  });
+}
+
+loadStickyValues();
 showStep(0);
 window.ScoutingSync.registerServiceWorker();
