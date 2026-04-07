@@ -160,6 +160,10 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
+.notes-single {
+  grid-template-columns: 1fr;
+}
+
 label {
   display: flex;
   flex-direction: column;
