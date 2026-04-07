@@ -12,6 +12,7 @@ const fieldIds = [
   "autoFuelAccuracy",
   "autoFloorIntake",
   "autoTrench",
+  "autoIntakeOutpost",
   "autoPassingNeutralZone",
   "autoFerryingNeutralZone",
   "autoDied",
@@ -20,6 +21,7 @@ const fieldIds = [
   "teleFuelAccuracy",
   "teleFloorIntake",
   "teleTrench",
+  "teleIntakeOutpost",
   "telePassingNeutralZone",
   "teleFerryingNeutralZone",
   "teleDied",
@@ -32,7 +34,6 @@ const fieldIds = [
   "teleopStrategy",
   "driverAdaptability",
   "specificBotProblems",
-  "kitbot",
   "notes",
 ];
 
@@ -101,9 +102,6 @@ function clearForm() {
 
     if (field.type === "checkbox") {
       field.checked = false;
-    } else if (field.type === "range") {
-      field.value = "0";
-      field.dataset.touched = "false";
     } else if (field.tagName === "SELECT") {
       field.selectedIndex = 0;
     } else {
@@ -118,16 +116,9 @@ function clearForm() {
     }
   }
   const defaultTeleClimb = document.querySelector('input[name="teleClimb"][value="No Climb"]');
-  const defaultAutoClimb = document.querySelector('input[name="autoClimb"][value="No Climb"]');
-  if (defaultAutoClimb) {
-    defaultAutoClimb.checked = true;
-  }
   if (defaultTeleClimb) {
     defaultTeleClimb.checked = true;
   }
-
-  getField("defenseValue").textContent = "Not set";
-  getField("driverValue").textContent = "Not set";
 
   for (const stickyFieldId of stickyFieldIds) {
     const field = getField(stickyFieldId);
@@ -214,8 +205,8 @@ function closeClearModal() {
 function setCounterValue(fieldId, value) {
   const field = getField(fieldId);
   if (!field) return;
-  const min = field.min === "" ? Number.NaN : Number(field.min);
-  const max = field.max === "" ? Number.NaN : Number(field.max);
+  const min = Number(field.min);
+  const max = Number(field.max);
   const safeMin = Number.isFinite(min) ? min : 0;
   const safeMax = Number.isFinite(max) ? max : Number.POSITIVE_INFINITY;
   const clamped = Math.min(safeMax, Math.max(safeMin, value));
@@ -238,16 +229,6 @@ function showStep(stepIndex) {
     panel.classList.toggle("is-active", panelStep === currentStep);
   }
   window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-for (const sliderId of ["defense", "driverSkill"]) {
-  const slider = getField(sliderId);
-  const output = getField(sliderId === "defense" ? "defenseValue" : "driverValue");
-  slider.dataset.touched = "false";
-  slider.addEventListener("input", () => {
-    slider.dataset.touched = "true";
-    output.textContent = slider.value;
-  });
 }
 
 submitButton.addEventListener("click", submitEntry);
