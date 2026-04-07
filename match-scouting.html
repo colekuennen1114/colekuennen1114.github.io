@@ -81,6 +81,7 @@
         <fieldset class="choice-group top-gap">
           <legend>Auto Climb</legend>
           <div class="option-grid compact-options">
+            <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" checked />No climb</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="No Climb" />No climb</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L1" />L1</label>
             <label class="choice-option"><input type="radio" name="autoClimb" value="L2" />L2</label>
@@ -116,6 +117,12 @@
             Trench?
           </label>
           <label class="toggle">
+            <input id="autoFloorIntake" type="checkbox" />
+            Ground intake?
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="autoPassingNeutralZone" type="checkbox" />
+            <span>Auto Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
             <input id="autoIntakeOutpost" type="checkbox" />
             Intake from outpost?
           </label>
@@ -163,6 +170,13 @@
         <div class="grid two-col top-gap">
           <label>
             Defense Impact (0-5)
+            <input id="defense" type="range" min="0" max="5" value="0" />
+            <span id="defenseValue">Not set</span>
+          </label>
+          <label>
+            Driver Skill (0-5)
+            <input id="driverSkill" type="range" min="0" max="5" value="0" />
+            <span id="driverValue">Not set</span>
             <select id="defense">
               <option value="" selected>------</option>
               <option value="0">0</option>
@@ -225,6 +239,12 @@
             Trench?
           </label>
           <label class="toggle">
+            <input id="teleFloorIntake" type="checkbox" />
+            Ground intake?
+          </label>
+          <label class="toggle rich-toggle">
+            <input id="telePassingNeutralZone" type="checkbox" />
+            <span>Teleop Passing (<u>shooting</u> fuel from neutral to alliance zone)</span>
             <input id="teleIntakeOutpost" type="checkbox" />
             Intake from outpost?
           </label>
@@ -257,6 +277,7 @@
           </label>
         </div>
         <p class="tiny top-gap">If you don&apos;t know/can&apos;t remember, don&apos;t answer.</p>
+        <div class="grid notes-single top-gap">
         <div class="grid two-col top-gap">
           <label>
             Balls per second the bot could shoot (estimate)
@@ -277,6 +298,10 @@
           <label class="full-width">
             Were there any <u>specific</u> problems with the bot?
             <textarea id="specificBotProblems" rows="3" placeholder="List any clear recurring or severe issues."></textarea>
+          </label>
+          <label class="toggle">
+            <input id="kitbot" type="checkbox" />
+            Kitbot?
           </label>
         </div>
         <label class="top-gap">
